@@ -1,0 +1,63 @@
+@model Pk.Models.Monitor
+
+@{
+    Layout = "_Layout";
+}
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Detalhes</title>
+</head>
+
+<body>
+
+    <div>
+        <h4>Pessoa</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Tombamento)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Tombamento)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Modelo)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Modelo)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Descricao)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Descricao)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Computador)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Computador.Tombamento)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Status)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Status)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Observacao)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Observacao)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</body>
+
+</html>

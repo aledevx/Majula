@@ -1,0 +1,218 @@
+@font-face {
+    font-family: Regular;
+    src: url('/wwwroot/font/Revalia-Regular.ttf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
+}
+
+body {
+    background: #F4F2F7;
+}
+
+.alien-sider-menu {
+    background: linear-gradient(180deg, #0E0C28 80.73%, #1D0C28 100%);
+    color: #fff;
+}
+
+.div-icones-sider {
+    padding-top: 24px;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+
+.alien,
+.gti,
+.user-name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 30px;
+}
+
+.item-menu-alien {
+    color: #fff;
+    letter-spacing: 0.5px;
+}
+
+.item-menu-alien:hover {
+    color: #4DC5C5;
+    font-weight: bolder;
+    border-left: 2px solid #60FC6F;
+    transition: ease 4.3s;
+}
+
+.botao-add {
+    display: flex;
+    height: 35px;
+    width: 35px;
+    align-items: center;
+    justify-content: center;
+    background: #AE3AEC;
+    border-radius: 8px;
+    color: #f1f1f1;
+    margin-right: 0px;
+}
+
+.botao-add:hover {
+    color: #f1f1f1;
+    transform: scale(1.2);
+    transition: ease 0.2s;
+}
+
+.botao-visualizar {
+    display: flex;
+    height: auto;
+    width: 100px;
+    justify-content: center;
+    background: #F2711C;
+    color: #f1f1f1;
+}
+
+.botao-visualizar:hover {
+    color: #f1f1f1;
+    background: #c55002;
+}
+
+.thead-computador {
+    background: linear-gradient(90.14deg, #4DC5C5 2.52%, #00DCCF 86.81%);
+}
+
+.botao-busca {
+    display: flex;
+    height: 38px;
+    width: 38px;
+    justify-content: center;
+    align-items: center;
+    background: #9E9E9E;
+    color: #f1f1f1;
+}
+
+.botao-busca:hover {
+    color: #f1f1f1;
+    background: #747474;
+}
+
+.section-detalhes {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    border: 2px solid red;
+    justify-content: space-between;
+}
+
+.coluna-1-detalhes {
+    display: flex;
+    height: auto;
+    width: 40%;
+}
+
+.card-computador {
+    border-radius: 8px;
+    min-width: 650px;
+    max-width: 650px;
+}
+
+.border-top-card-body {
+    border-top: 2px solid #c4c4c4;
+}
+
+.bg-header {
+    display: flex;
+    background: linear-gradient(90.14deg, #4DC5C5 2.52%, #00DCCF 86.81%);
+    border-radius: 8px 8px 0px 0px;
+    height: 50px;
+    align-items: center;
+    padding-top: 15px;
+}
+
+.coluna-2-detalhes {
+    display: flex;
+    height: auto;
+    width: 40%;
+    border: 2px solid blue;
+}
+
+.botao-acao1 {
+    display: flex;
+    height: 30px;
+    width: 80px;
+    margin-top: -35px;
+    margin-left: 620px;
+    justify-content: center;
+    align-items: center;
+    background: #18BCEB;
+    color: #f1f1f1;
+    position: absolute;
+    z-index: 1;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.botao-acao1:hover {
+    color: #f1f1f1;
+    background: #16a1c7;
+}
+
+.botao-acao2 {
+    display: flex;
+    height: 30px;
+    width: 80px;
+    margin-top: 5px;
+    margin-left: 620px;
+    justify-content: center;
+    align-items: center;
+    background: #4F90F5;
+    color: #f1f1f1;
+    position: absolute;
+    z-index: 1;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.botao-acao2:hover {
+    color: #f1f1f1;
+    background: #3b6cbb;
+}
+
+.botao-acao3 {
+    display: flex;
+    height: 30px;
+    width: 80px;
+    margin-top: 45px;
+    margin-left: 620px;
+    justify-content: center;
+    align-items: center;
+    background: #F2711C;
+    color: #f1f1f1;
+    position: absolute;
+    z-index: 1;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.botao-acao3:hover {
+    color: #f1f1f1;
+    background: #ce5f15;
+}
+
+.botao-acao4 {
+    display: flex;
+    height: 30px;
+    width: 80px;
+    margin-top: 85px;
+    margin-left: 620px;
+    justify-content: center;
+    align-items: center;
+    background: #DB2828;
+    color: #f1f1f1;
+    position: absolute;
+    z-index: 1;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.botao-acao4:hover {
+    color: #f1f1f1;
+    background: #af1e1e;
+}

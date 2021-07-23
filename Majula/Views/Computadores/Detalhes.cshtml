@@ -1,0 +1,113 @@
+@model Pk.Models.Computador
+
+@{
+    Layout = "_Layout";
+}
+
+<html>
+
+<body>
+    <section class="section-detalhes">
+        <div class="coluna-1-detalhes">
+            <div class="card card-computador">
+                <div class="card-header bg-header">
+                    <h3>Computador</h3>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.Tombamento): <a href="" class="botao-acao1">Teste</a>
+                            <a href="" class="botao-acao2">Teste</a>
+                            <a class="botao-acao3" asp-action="Editar" asp-route-id="@Model.Id">Editar</a>
+                            <a href="" class="botao-acao4">Teste</a>
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.Tombamento)
+                        </dd>
+                        <dt class="col-sm-4 border-top-card-body">
+                            @Html.DisplayNameFor(model => model.Modelo):
+                        </dt>
+                        <dd class="col-sm-8 border-top-card-body">
+                            @Html.DisplayFor(model => model.Modelo)
+                        </dd>
+                        <dt class="col-sm-4 border-top-card-body">
+                            @Html.DisplayNameFor(model => model.Processador):
+                        </dt>
+                        <dd class="col-sm-8 border-top-card-body">
+                            @Html.DisplayFor(model => model.Processador)
+                        </dd>
+                        <dt class="col-sm-4 border-top-card-body">
+                            @Html.DisplayNameFor(model => model.Memoria):
+                        </dt>
+                        <dd class="col-sm-8 border-top-card-body">
+                            @Html.DisplayFor(model => model.Memoria)
+                        </dd>
+                        <dt class="col-sm-4 border-top-card-body">
+                            @Html.DisplayNameFor(model => model.ArmazenamentoInterno1):
+                        </dt>
+                        <dd class="col-sm-8 border-top-card-body">
+                            @Html.DisplayFor(model => model.ArmazenamentoInterno1)
+                        </dd>
+                        <dt class="col-sm-4 border-top-card-body">
+                            @Html.DisplayNameFor(model => model.ArmazenamentoInterno2):
+                        </dt>
+                        <dd class="col-sm-8 border-top-card-body">
+                            @Html.DisplayFor(model => model.ArmazenamentoInterno2)
+                        </dd>
+                        <dt class="col-sm-4 border-top-card-body">
+                            @Html.DisplayNameFor(model => model.Status):
+                        </dt>
+                        <dd class="col-sm-8 border-top-card-body">
+                            @Html.DisplayFor(model => model.Status)
+                        </dd>
+                        <dt class="col-sm-4 border-top-card-body">
+                            @Html.DisplayNameFor(model => model.Responsavel):
+                        </dt>
+                        <dd class="col-sm-8 border-top-card-body">
+                            @Html.DisplayFor(model => model.Responsavel)
+                        </dd>
+                        <dt class="col-sm-4 border-top-card-body">
+                            @Html.DisplayNameFor(model => model.ProcessoAquisicao):
+                        </dt>
+                        <dd class="col-sm-8 border-top-card-body">
+                            @Html.DisplayFor(model => model.ProcessoAquisicao)
+                        </dd>
+                        <dt class="col-sm-4 border-top-card-body">
+                            @Html.DisplayNameFor(model => model.Cautela):
+                        </dt>
+                        <dd class="col-sm-8 border-top-card-body">
+                            @Html.DisplayFor(model => model.Cautela)
+                        </dd>
+                        <dt class="col-sm-4 border-top-card-body">
+                            @Html.DisplayNameFor(model => model.Origem):
+                        </dt>
+                        <dd class="col-sm-8 border-top-card-body">
+                            @Html.DisplayFor(model => model.Origem)
+                        </dd>
+                        <dt class="col-sm-4 border-top-card-body">
+                            @Html.DisplayNameFor(model => model.Destino):
+                        </dt>
+                        <dd class="col-sm-8 border-top-card-body">
+                            @Html.DisplayFor(model => model.Destino)
+                        </dd>
+                        <dt class="col-sm-4 border-top-card-body">
+                            @Html.DisplayNameFor(model => model.Observacao):
+                        </dt>
+                        <dd class="col-sm-8 border-top-card-body">
+                            @Html.DisplayFor(model => model.Observacao)
+                        </dd>
+                    </dl>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="coluna-2-detalhes">
+
+        </div>
+
+    </section>
+
+</body>
+
+</html>
