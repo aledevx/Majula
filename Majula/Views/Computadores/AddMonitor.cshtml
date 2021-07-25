@@ -1,0 +1,91 @@
+@model IEnumerable<Pk.Models.Monitor>
+
+<br>
+<h1 style="text-align: center; color: #3D405C;">Buscar monitor</h1>
+
+<br>
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <form asp-controller="Computadores" asp-action="AddMonitor" method="get">
+            <p>
+            <div class="input-group mb-5">
+                <div class="input-group-text">
+                    <i class="fas fa-user-alt"></i>
+                </div>
+                <input class="form-control" type="text" placeholder="Digite o tombamento do monitor"
+                    name="searchString">
+                &nbsp;&nbsp;&nbsp;<input id="busc" type="submit" class="btn btn-info" value="Buscar" />
+            </div>
+            </p>
+        </form>
+    </div>
+
+
+    @if (Model != null)
+    {
+        <table class="table table-striped">
+            <thead class="thead-computador">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Tombamento)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Modelo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Descricao)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                    <th>
+                        Ações
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Tombamento)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Modelo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descricao)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            <a asp-action="Detalhes" class="botao-visualizar btn" asp-route-id="@item.Id">Detalhes</a>
+                            @* <a asp-action="Editar" asp-route-id="@item.Id">Editar</a>
+                                <a asp-action="Excluir" asp-route-id="@item.Id">Excluir</a> *@
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+
+    @* @if(!ViewBag.monitorNaoEcontrado){
+        <div class="col-md-12">
+        <br>
+        <div class="row">
+        <div class="alert alert-danger" role="alert" style="margin: auto; opaticy: 0.5;">
+        <h4 class="alert-heading">SERVIDOR NÃO ENCONTRADO!</h4>
+        <p>Verifique se o nome do <b>servidor</b>, <b>cpf</b> ou <b>matrícula</b> foram digitados corretamente.</p>
+        </div>
+        </div>
+
+        </div>
+        <br>
+        <br>
+        <br>
+        }else{
+
+        } *@

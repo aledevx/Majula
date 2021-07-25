@@ -6,6 +6,7 @@ using Pk.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Pk.Services;
+using System;
 
 namespace Pk.Controllers
 {
@@ -19,6 +20,7 @@ namespace Pk.Controllers
             _context = context;
             _geradorListas = geradorListas;
         }
+
 
         public IActionResult Index()
         {

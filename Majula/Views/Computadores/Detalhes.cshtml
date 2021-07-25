@@ -18,10 +18,13 @@
                 <div class="card-body">
                     <dl class="row">
                         <dt class="col-sm-4">
-                            @Html.DisplayNameFor(model => model.Tombamento): <a href="" class="botao-acao1" data-toggle="modal" data-target="#modalMovimentacao">Mov</a>
-                            <a href="" class="botao-acao2">Teste</a>
-                            <a class="botao-acao3" asp-action="Editar" asp-route-id="@Model.Id">Editar</a>
-                            <a href="" class="botao-acao4">Teste</a>
+                            @Html.DisplayNameFor(model => model.Tombamento): <a href="" class="botao-acao1"
+                                data-toggle="modal" data-target="#modalMovimentacao"><i
+                                    class="fas fa-exchange-alt"></i></a>
+                            <a class="botao-acao2" asp-controller="Monitores" asp-action="AddMonitor"><i class="fas fa-desktop"></i></a>
+                            <a class="botao-acao3" asp-action="Editar" asp-route-id="@Model.Id"><i
+                                    class="fas fa-cogs"></i></a>
+                            <a href="" class="botao-acao4"><i class="fas fa-trash-alt"></i></a>
 
                         </dt>
                         <dd class="col-sm-8">
@@ -105,7 +108,7 @@
             </div>
 
 
-            
+
 
 
 
@@ -173,7 +176,7 @@
                                 Modelo
                             </dt>
                             <dd class="col-sm-8 border-top-card-body">
-                               @item.Modelo
+                                @item.Modelo
                             </dd>
                             <dt class="col-sm-4 border-top-card-body">
                                 Descrição
@@ -197,25 +200,26 @@
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Movimentar</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Movimentar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
 
-                <div class="modal-body">
+            <div class="modal-body">
 
-                    <div class="form-group">
-                        <label for="Setor" class="col-form-label">Setor:</label>
-                        <input type="text" class="form-control" id="ModalSetor">
-                    </div>
+                <div class="form-group">
+                    <label for="Setor" class="col-form-label">Setor:</label>
+                    <input type="text" class="form-control" id="ModalSetor">
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                    <input type="submit" class="btn btn-primary" data-dismiss="modal" onclick="addItem()"  />
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <input type="submit" class="btn btn-primary" data-dismiss="modal" onclick="addItem()" />
+            </div>
         </div>
     </div>
 </div>
+
 </html>

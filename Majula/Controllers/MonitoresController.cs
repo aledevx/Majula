@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -20,10 +21,44 @@ namespace Pk.Controllers
             _geradorListas = geradorListas;
         }
 
-        public IActionResult Index()
+        // public async Task<IActionResult> AddMonitor(string searchString, int? ComputadorId)
+        // {
+
+        //     if (searchString == null)
+        //     {
+        //         ViewBag.monitorNaoEncontrado = true;
+        //     }
+
+        //     var monitores = _context.Monitores.Where(m => m.Tombamento.Contains(searchString));
+
+        //     if (searchString != null && monitores.Count() == 0)
+        //     {
+        //         ViewBag.monitorNaoEncontrado = false;
+        //     }
+        //     else
+        //     {
+        //         ViewBag.monitorNaoEncontrado = true;
+        //     }
+
+        //     return View(await monitores.FirstOrDefaultAsync());
+
+        // }
+        public async Task<IActionResult> Index(string searchString)
         {
-            var monitores = _context.Monitores;
-            return View(monitores.ToList());
+
+            var monitores = from m in _context.Monitores
+                            select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                monitores = monitores.Where(s => s.Tombamento.Contains(searchString));
+                ViewBag.monitorNaoEncontrado = false;
+            }
+            else
+            {
+                ViewBag.monitorNaoEncontrado = true;
+            }
+            return View(await monitores.ToListAsync());
         }
 
         public IActionResult Criar()
@@ -39,6 +74,30 @@ namespace Pk.Controllers
                 _context.Add(monitor);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
+            }
+
+            return View();
+        }
+        public IActionResult AddMonitor(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+           var computador = _context.Computadores.Find(id);
+            ViewBag.Status = _geradorListas.ListaStatus();
+            return View(computador);
+            
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddMonitor(Computador computador, Monitor monitor)
+        {
+            if (ModelState.IsValid)
+            {
+                monitor.ComputadorId = computador.Id;
+                _context.Add(monitor);
+                await _context.SaveChangesAsync();
+                 return RedirectToAction("Detalhes", "Computadores", new { id = computador.Id });
             }
 
             return View();
