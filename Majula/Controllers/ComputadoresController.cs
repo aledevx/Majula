@@ -50,7 +50,8 @@ namespace Pk.Controllers
                 return NotFound();
             }
 
-            var computador = await _context.Computadores.FirstOrDefaultAsync(c => c.Id == id);
+            var computador = await _context.Computadores.Include(m => m.Monitores)
+            .FirstOrDefaultAsync(c => c.Id == id);
 
             if (computador == null)
             {

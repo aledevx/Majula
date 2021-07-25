@@ -2,6 +2,8 @@
 
 @{
     Layout = "_Layout";
+    ViewData["Title"] = "Detalhes";
+
 }
 
 <html>
@@ -16,10 +18,11 @@
                 <div class="card-body">
                     <dl class="row">
                         <dt class="col-sm-4">
-                            @Html.DisplayNameFor(model => model.Tombamento): <a href="" class="botao-acao1">Teste</a>
+                            @Html.DisplayNameFor(model => model.Tombamento): <a href="" class="botao-acao1" data-toggle="modal" data-target="#modalMovimentacao">Mov</a>
                             <a href="" class="botao-acao2">Teste</a>
                             <a class="botao-acao3" asp-action="Editar" asp-route-id="@Model.Id">Editar</a>
                             <a href="" class="botao-acao4">Teste</a>
+
                         </dt>
                         <dd class="col-sm-8">
                             @Html.DisplayFor(model => model.Tombamento)
@@ -101,8 +104,87 @@
 
             </div>
 
+
+            
+
+
+
+
+            <div class="card card-movimentacao">
+                <div class="card-header bg-header-movimentacao">
+                    <h5> <b>Movimentações</b></h5>
+                </div>
+                <div class="card-body" style="padding: 0px;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Setor</th>
+                                <th>Data</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    GTI
+                                </td>
+                                <td>
+                                    10/04/2021 09:45
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    GTI
+                                </td>
+                                <td>
+                                    10/04/2021 09:45
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    GTI
+                                </td>
+                                <td>
+                                    10/04/2021 09:45
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
         </div>
         <div class="coluna-2-detalhes">
+            @foreach (var item in Model.Monitores)
+            {
+                <div class="card card-monitor">
+                    <div class="card-header bg-header-monitor">
+                        <h3>Monitor</h3>
+                    </div>
+                    <div class="card-body">
+                        <dl class="row">
+                            <dt class="col-sm-4">
+                                Tombamento
+                            </dt>
+                            <dd class="col-sm-8">
+                                @item.Tombamento
+                            </dd>
+                            <dt class="col-sm-4 border-top-card-body">
+                                Modelo
+                            </dt>
+                            <dd class="col-sm-8 border-top-card-body">
+                               @item.Modelo
+                            </dd>
+                            <dt class="col-sm-4 border-top-card-body">
+                                Descrição
+                            </dt>
+                            <dd class="col-sm-8 border-top-card-body">
+                                @item.Descricao
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            }
 
         </div>
 
@@ -110,4 +192,30 @@
 
 </body>
 
+
+<div class="modal fade" id="modalMovimentacao" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Movimentar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="Setor" class="col-form-label">Setor:</label>
+                        <input type="text" class="form-control" id="ModalSetor">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <input type="submit" class="btn btn-primary" data-dismiss="modal" onclick="addItem()"  />
+                </div>
+        </div>
+    </div>
+</div>
 </html>
