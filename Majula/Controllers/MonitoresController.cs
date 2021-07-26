@@ -60,6 +60,32 @@ namespace Pk.Controllers
             }
             return View(await monitores.ToListAsync());
         }
+        public async Task<IActionResult> Teste(string searchString, int? computadorId)
+        {
+
+            var monitores = from m in _context.Monitores
+                            select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                monitores = monitores.Where(s => s.Tombamento.Contains(searchString));
+                ViewBag.monitorNaoEncontrado = false;
+            }
+            else
+            {
+                ViewBag.monitorNaoEncontrado = true;
+            }
+            return View(await monitores.ToListAsync());
+        }
+
+        [HttpPost]
+        public void BtnTeste(int? id, int? computadorId)
+        {
+            var monitor = _context.Monitores.Find(id);
+
+            monitor.ComputadorId = computadorId;
+
+        }
 
         public IActionResult Criar(int? computadorId)
         {
