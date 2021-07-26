@@ -16,6 +16,10 @@
             <form asp-action="Criar">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
+                    <input asp-for="ComputadorId" type='hidden'>
+                </div>
+
+                <div class="form-group">
                     <label asp-for="Tombamento" class="control-label"></label>
                     <input asp-for="Tombamento" class="form-control" />
                     <span asp-validation-for="Tombamento" class="text-danger"></span>
