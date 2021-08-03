@@ -21,7 +21,7 @@
                             @Html.DisplayNameFor(model => model.Tombamento): <a href="" class="botao-acao1"
                                 data-toggle="modal" data-target="#modalMovimentacao"><i
                                     class="fas fa-exchange-alt"></i></a>
-                            <a class="botao-acao2" asp-controller="Monitores" asp-action="Criar" asp-route-computadorId="@Model.Id"><i class="fas fa-desktop"></i></a>
+                            <a class="botao-acao2" asp-controller="Monitores" asp-action="Teste" asp-route-computadorId="@Model.Id"><i class="fas fa-desktop"></i></a>
                             <a class="botao-acao3" asp-action="Editar" asp-route-id="@Model.Id"><i
                                     class="fas fa-cogs"></i></a>
                             <a href="" class="botao-acao4"><i class="fas fa-trash-alt"></i></a>
@@ -168,6 +168,7 @@
                         <dl class="row">
                             <dt class="col-sm-4">
                                 Tombamento
+                                <a asp-action="Desvincular" asp-route-id="@item.Id" asp-controller="Monitores" class="botao-desvincular"><i class="fas fa-skull"></i></a>
                             </dt>
                             <dd class="col-sm-8">
                                 @item.Tombamento

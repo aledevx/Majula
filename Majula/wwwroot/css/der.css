@@ -98,6 +98,7 @@ body {
     width: 100%;
     height: 100%;
     justify-content: space-between;
+    border: 2px solid red;
 }
 
 @media screen and (max-width: 1600px) {
@@ -118,6 +119,7 @@ body {
     flex-direction: column;
     min-width: 700px;
     margin-bottom: 50px;
+    border: 2px solid blue;
 }
 
 .card-computador {
@@ -178,6 +180,7 @@ body {
     height: auto;
     width: 40%;
     flex-direction: column;
+    border: 2px solid yellow;
 }
 
 .botao-acao1 {
@@ -298,4 +301,26 @@ body {
     z-index: 1;
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
+}
+
+
+.botao-desvincular {
+    display: flex;
+    height: 30px;
+    width: 80px;
+    margin-top: -35px;
+    margin-left: 372px;
+    justify-content: center;
+    align-items: center;
+    background: #f72233;
+    color: #f1f1f1;
+    position: absolute;
+    z-index: 1;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.botao-desvincular:hover {
+    color: #f1f1f1;
+    background: #d41020;
 }

@@ -60,7 +60,7 @@
                         @Html.DisplayFor(modelItem => item.Status)
                     </td>
                     <td>
-                        <a asp-action="TesteDois" class="botao-visualizar btn" asp-route-id="@item.Id, @Model.Id">Selecionar</a>
+                        <a asp-action="Vincular" class="botao-visualizar btn" asp-route-id="@item.Id" asp-route-computadorId="@ViewBag.computadorId">Selecionar</a>
                         @* <a asp-action="Editar" asp-route-id="@item.Id">Editar</a>
                             <a asp-action="Excluir" asp-route-id="@item.Id">Excluir</a> *@
                     </td>

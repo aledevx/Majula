@@ -60,11 +60,23 @@ namespace Pk.Controllers
             }
             return View(await monitores.ToListAsync());
         }
+
+        public async Task<IActionResult> Vincular(int id, int computadorId)
+        {
+            var monitor = await _context.Monitores.FindAsync(id);
+
+            monitor.ComputadorId = computadorId;
+            _context.Update(monitor);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Detalhes", "Computadores", new {id = computadorId});
+        }
         public async Task<IActionResult> Teste(string searchString, int? computadorId)
         {
 
             var monitores = from m in _context.Monitores
                             select m;
+
+            ViewBag.computadorId = computadorId;
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -107,7 +119,7 @@ namespace Pk.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Detalhes", "Computadores", new {id = monitor.ComputadorId});
+                    return RedirectToAction("Detalhes", "Computadores", new { id = monitor.ComputadorId });
                 }
 
             }
@@ -218,6 +230,20 @@ namespace Pk.Controllers
             }
 
             return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> Desvincular(int? id)
+        {
+
+            var monitor = await _context.Monitores.FindAsync(id);
+
+            int computadorId = Convert.ToInt32(monitor.ComputadorId);
+
+            monitor.ComputadorId = null;
+
+            _context.Update(monitor);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Detalhes", "Computadores", new { id = computadorId });
         }
 
 
