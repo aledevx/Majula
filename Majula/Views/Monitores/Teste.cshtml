@@ -13,7 +13,7 @@
 <body>
     <div style="display: flex; justify-content: space-between; align-items: center;">
         <p>
-            <a asp-action="Criar" class="botao-add"><i class="fas fa-plus"></i></a>
+            <a asp-action="AddMonitor" asp-route-computadorId="@ViewBag.computadorId" class="botao-add"><i class="fas fa-plus"></i></a>
         </p>
         <form asp-controller="Monitores" asp-action="Index" method="get">
             <p>

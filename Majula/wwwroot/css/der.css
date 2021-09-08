@@ -98,7 +98,6 @@ body {
     width: 100%;
     height: 100%;
     justify-content: space-between;
-    border: 2px solid red;
 }
 
 @media screen and (max-width: 1600px) {
@@ -119,7 +118,6 @@ body {
     flex-direction: column;
     min-width: 700px;
     margin-bottom: 50px;
-    border: 2px solid blue;
 }
 
 .card-computador {
@@ -180,7 +178,6 @@ body {
     height: auto;
     width: 40%;
     flex-direction: column;
-    border: 2px solid yellow;
 }
 
 .botao-acao1 {
@@ -302,7 +299,6 @@ body {
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
 }
-
 
 .botao-desvincular {
     display: flex;

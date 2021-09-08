@@ -68,7 +68,22 @@ namespace Pk.Controllers
             monitor.ComputadorId = computadorId;
             _context.Update(monitor);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Detalhes", "Computadores", new {id = computadorId});
+            return RedirectToAction("Detalhes", "Computadores", new { id = computadorId });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Desvincular(int? id)
+        {
+
+            var monitor = await _context.Monitores.FindAsync(id);
+
+            int computadorId = Convert.ToInt32(monitor.ComputadorId);
+
+            monitor.ComputadorId = null;
+
+            _context.Update(monitor);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Detalhes", "Computadores", new { id = computadorId });
         }
         public async Task<IActionResult> Teste(string searchString, int? computadorId)
         {
@@ -126,30 +141,31 @@ namespace Pk.Controllers
 
             return View();
         }
-        // public IActionResult AddMonitor(int? id)
-        // {
-        //     if (id == null)
-        //     {
-        //         return NotFound();
-        //     }
-        //    var computador = _context.Computadores.Find(id);
-        //     ViewBag.Status = _geradorListas.ListaStatus();
-        //     return View(computador);
+        public IActionResult AddMonitor(int? computadorId)
+        {
+            if (computadorId == null)
+            {
+                return NotFound();
+            }
+            ViewBag.computadorId = computadorId;
+            var computador = _context.Computadores.Find(computadorId);
+            ViewBag.Status = _geradorListas.ListaStatus();
+            return View(computador);
 
-        // }
-        // [HttpPost]
-        // public async Task<IActionResult> AddMonitor(Computador computador, Monitor monitor)
-        // {
-        //     if (ModelState.IsValid)
-        //     {
-        //         monitor.ComputadorId = computador.Id;
-        //         _context.Add(monitor);
-        //         await _context.SaveChangesAsync();
-        //          return RedirectToAction("Detalhes", "Computadores", new { id = computador.Id });
-        //     }
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddMonitor(int computadorId, Monitor monitor)
+        {
+            if (ModelState.IsValid)
+            {
+                monitor.ComputadorId = computadorId;
+                _context.Add(monitor);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Detalhes", "Computadores", new { id = computadorId });
+            }
 
-        //     return View();
-        // }
+            return View();
+        }
 
         public async Task<IActionResult> Detalhes(int? id)
         {
@@ -231,20 +247,7 @@ namespace Pk.Controllers
 
             return View();
         }
-        [HttpGet]
-        public async Task<IActionResult> Desvincular(int? id)
-        {
 
-            var monitor = await _context.Monitores.FindAsync(id);
-
-            int computadorId = Convert.ToInt32(monitor.ComputadorId);
-
-            monitor.ComputadorId = null;
-
-            _context.Update(monitor);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Detalhes", "Computadores", new { id = computadorId });
-        }
 
 
 
