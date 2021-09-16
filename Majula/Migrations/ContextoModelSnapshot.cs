@@ -26,16 +26,7 @@ namespace Pk.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ArmazenamentoInterno1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ArmazenamentoInterno2")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Cautela")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Destino")
+                    b.Property<string>("ArmazenamentoInterno")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Memoria")
@@ -47,13 +38,7 @@ namespace Pk.Migrations
                     b.Property<string>("Observacao")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Origem")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Processador")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProcessoAquisicao")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Responsavel")

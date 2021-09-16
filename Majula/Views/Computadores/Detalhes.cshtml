@@ -49,16 +49,10 @@
                             @Html.DisplayFor(model => model.Memoria)
                         </dd>
                         <dt class="col-sm-4 border-top-card-body">
-                            @Html.DisplayNameFor(model => model.ArmazenamentoInterno1):
+                            @Html.DisplayNameFor(model => model.ArmazenamentoInterno):
                         </dt>
                         <dd class="col-sm-8 border-top-card-body">
-                            @Html.DisplayFor(model => model.ArmazenamentoInterno1)
-                        </dd>
-                        <dt class="col-sm-4 border-top-card-body">
-                            @Html.DisplayNameFor(model => model.ArmazenamentoInterno2):
-                        </dt>
-                        <dd class="col-sm-8 border-top-card-body">
-                            @Html.DisplayFor(model => model.ArmazenamentoInterno2)
+                            @Html.DisplayFor(model => model.ArmazenamentoInterno)
                         </dd>
                         <dt class="col-sm-4 border-top-card-body">
                             @Html.DisplayNameFor(model => model.Status):
@@ -73,30 +67,6 @@
                             @Html.DisplayFor(model => model.Responsavel)
                         </dd>
                         <dt class="col-sm-4 border-top-card-body">
-                            @Html.DisplayNameFor(model => model.ProcessoAquisicao):
-                        </dt>
-                        <dd class="col-sm-8 border-top-card-body">
-                            @Html.DisplayFor(model => model.ProcessoAquisicao)
-                        </dd>
-                        <dt class="col-sm-4 border-top-card-body">
-                            @Html.DisplayNameFor(model => model.Cautela):
-                        </dt>
-                        <dd class="col-sm-8 border-top-card-body">
-                            @Html.DisplayFor(model => model.Cautela)
-                        </dd>
-                        <dt class="col-sm-4 border-top-card-body">
-                            @Html.DisplayNameFor(model => model.Origem):
-                        </dt>
-                        <dd class="col-sm-8 border-top-card-body">
-                            @Html.DisplayFor(model => model.Origem)
-                        </dd>
-                        <dt class="col-sm-4 border-top-card-body">
-                            @Html.DisplayNameFor(model => model.Destino):
-                        </dt>
-                        <dd class="col-sm-8 border-top-card-body">
-                            @Html.DisplayFor(model => model.Destino)
-                        </dd>
-                        <dt class="col-sm-4 border-top-card-body">
                             @Html.DisplayNameFor(model => model.Observacao):
                         </dt>
                         <dd class="col-sm-8 border-top-card-body">
@@ -106,12 +76,6 @@
                 </div>
 
             </div>
-
-
-
-
-
-
 
             <div class="card card-movimentacao">
                 <div class="card-header bg-header-movimentacao">
@@ -202,14 +166,12 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Movimentar</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Destino</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-
             <div class="modal-body">
-
                 <div class="form-group">
                     <label for="Setor" class="col-form-label">Setor:</label>
                     <input type="text" class="form-control" id="ModalSetor">

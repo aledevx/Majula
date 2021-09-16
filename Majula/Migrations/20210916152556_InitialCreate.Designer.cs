@@ -10,8 +10,8 @@ using Pk.Data;
 namespace Pk.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20210712021633_AlteracoesStatusTabelas2")]
-    partial class AlteracoesStatusTabelas2
+    [Migration("20210916152556_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,16 +28,7 @@ namespace Pk.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ArmazenamentoInterno1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ArmazenamentoInterno2")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Cautela")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Destino")
+                    b.Property<string>("ArmazenamentoInterno")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Memoria")
@@ -46,13 +37,10 @@ namespace Pk.Migrations
                     b.Property<string>("Modelo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Origem")
+                    b.Property<string>("Observacao")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Processador")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProcessoAquisicao")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Responsavel")
@@ -62,6 +50,7 @@ namespace Pk.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Tombamento")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -77,18 +66,24 @@ namespace Pk.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Categoria")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Cautela")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Descricao")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Destino")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Observacao")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Origem")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProcessoAquisicao")
@@ -98,6 +93,10 @@ namespace Pk.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tombamento")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -112,19 +111,25 @@ namespace Pk.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ComputadorId")
+                    b.Property<int?>("ComputadorId")
                         .HasColumnType("int");
 
                     b.Property<string>("Descricao")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Modelo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Observacao")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Tombamento")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -147,7 +152,13 @@ namespace Pk.Migrations
                     b.Property<DateTime>("DataAtual")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("EntidadeId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("EquipamentoId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MonitorId")
                         .HasColumnType("int");
 
                     b.Property<string>("Setor")
@@ -159,6 +170,8 @@ namespace Pk.Migrations
 
                     b.HasIndex("EquipamentoId");
 
+                    b.HasIndex("MonitorId");
+
                     b.ToTable("Movimentacoes");
                 });
 
@@ -166,9 +179,7 @@ namespace Pk.Migrations
                 {
                     b.HasOne("Pk.Models.Computador", "Computador")
                         .WithMany("Monitores")
-                        .HasForeignKey("ComputadorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ComputadorId");
 
                     b.Navigation("Computador");
                 });
@@ -182,6 +193,10 @@ namespace Pk.Migrations
                     b.HasOne("Pk.Models.Equipamento", null)
                         .WithMany("Movimentacoes")
                         .HasForeignKey("EquipamentoId");
+
+                    b.HasOne("Pk.Models.Monitor", null)
+                        .WithMany("Movimentacoes")
+                        .HasForeignKey("MonitorId");
                 });
 
             modelBuilder.Entity("Pk.Models.Computador", b =>
@@ -192,6 +207,11 @@ namespace Pk.Migrations
                 });
 
             modelBuilder.Entity("Pk.Models.Equipamento", b =>
+                {
+                    b.Navigation("Movimentacoes");
+                });
+
+            modelBuilder.Entity("Pk.Models.Monitor", b =>
                 {
                     b.Navigation("Movimentacoes");
                 });

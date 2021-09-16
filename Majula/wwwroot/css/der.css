@@ -125,7 +125,10 @@ body {
     min-width: 650px;
     max-width: 650px;
 }
-
+.card-monitor-detalhes {
+    border-radius: 8px;
+    width: 450px;
+}
 .card-monitor {
     border-radius: 8px;
     min-width: 400px;
