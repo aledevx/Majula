@@ -20,9 +20,10 @@
                         <input type="hidden" asp-for="Id">
                         <dt class="col-sm-4">
                             @Html.DisplayNameFor(model => model.Tombamento): <a href="" class="botao-acao1"
-                                data-toggle="modal" data-target="#modalMovimentacao"><i
+                                data-toggle="modal" data-target="#modalMovimentacaoPc"><i
                                     class="fas fa-exchange-alt"></i></a>
-                            <a class="botao-acao2" asp-controller="Monitores" asp-action="Teste" asp-route-computadorId="@Model.Id"><i class="fas fa-desktop"></i></a>
+                            <a class="botao-acao2" asp-controller="Monitores" asp-action="Teste"
+                                asp-route-computadorId="@Model.Id"><i class="fas fa-desktop"></i></a>
                             <a class="botao-acao3" asp-action="Editar" asp-route-id="@Model.Id"><i
                                     class="fas fa-cogs"></i></a>
                             <a href="" class="botao-acao4"><i class="fas fa-trash-alt"></i></a>
@@ -84,90 +85,60 @@
 
             </div>
 
-            <div class="card card-movimentacao">
-                <div class="card-header bg-header-movimentacao">
-                    <h5> <b>Movimentações</b></h5>
-                </div>
-                <div class="card-body" style="padding: 0px;">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Setor</th>
-                                <th>Data</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    GTI
-                                </td>
-                                <td>
-                                    10/04/2021 09:45
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    GTI
-                                </td>
-                                <td>
-                                    10/04/2021 09:45
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    GTI
-                                </td>
-                                <td>
-                                    10/04/2021 09:45
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
 
+            <div class="card d-flex" style="width: 650px;">
+                <div class="card-header" style="border: 2px solid red;">
+                    <dl class="row">
+                    <dt class="col-sm-3">Setor atual</dt>
+                    <dd class="col-sm-2">GTI</dd>
+                    <dt class="col-sm-4">Data movimentação</dt>
+                    <dd class="col-sm-3">10/04/2021 09:35</dd>
+                    </dl>
+                </div>
             </div>
 
         </div>
         @* <div class="coluna-2-detalhes">
             @foreach (var item in Model.Monitores)
             {
-                <div class="card card-monitor">
-                    <div class="card-header bg-header-monitor">
-                        <h3>Monitor</h3>
-                    </div>
-                    <div class="card-body">
-                        <dl class="row">
-                            <dt class="col-sm-4">
-                                Tombamento
-                                <a asp-action="Desvincular" asp-route-id="@item.Id" asp-controller="Monitores" class="botao-desvincular"><i class="fas fa-skull"></i></a>
-                            </dt>
-                            <dd class="col-sm-8">
-                                @item.Tombamento
-                            </dd>
-                            <dt class="col-sm-4 border-top-card-body">
-                                Modelo
-                            </dt>
-                            <dd class="col-sm-8 border-top-card-body">
-                                @item.Modelo
-                            </dd>
-                            <dt class="col-sm-4 border-top-card-body">
-                                Descrição
-                            </dt>
-                            <dd class="col-sm-8 border-top-card-body">
-                                @item.Descricao
-                            </dd>
-                        </dl>
-                    </div>
-                </div>
+            <div class="card card-monitor">
+            <div class="card-header bg-header-monitor">
+            <h3>Monitor</h3>
+            </div>
+            <div class="card-body">
+            <dl class="row">
+            <dt class="col-sm-4">
+            Tombamento
+            <a asp-action="Desvincular" asp-route-id="@item.Id" asp-controller="Monitores" class="botao-desvincular"><i
+            class="fas fa-skull"></i></a>
+            </dt>
+            <dd class="col-sm-8">
+            @item.Tombamento
+            </dd>
+            <dt class="col-sm-4 border-top-card-body">
+            Modelo
+            </dt>
+            <dd class="col-sm-8 border-top-card-body">
+            @item.Modelo
+            </dd>
+            <dt class="col-sm-4 border-top-card-body">
+            Descrição
+            </dt>
+            <dd class="col-sm-8 border-top-card-body">
+            @item.Descricao
+            </dd>
+            </dl>
+            </div>
+            </div>
             }
 
-        </div> *@
+            </div> *@
 
     </section>
 
 </body>
 
 
-@Html.Partial("/Views/Shared/_ModalMovimentacao.cshtml")
+@Html.Partial("/Views/Shared/_ModalMovimentacaoPc.cshtml")
 
 </html>

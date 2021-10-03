@@ -15,22 +15,27 @@
             <form asp-action="Criar">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="col-md-12 row">
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                         <label asp-for="Tombamento" class="control-label"></label>
                         <input asp-for="Tombamento" class="form-control" />
                         <span asp-validation-for="Tombamento" class="text-danger"></span>
                     </div>
-                    <div class="col-md-7">
-                        <label asp-for="Processador" class="control-label"></label>
-                        <input asp-for="Processador" class="form-control" />
-                        <span asp-validation-for="Processador" class="text-danger"></span>
+                    <div class="col-md-3">
+                        <label asp-for="Marca" class="control-label"></label>
+                        <input asp-for="Marca" class="form-control" />
+                        <span asp-validation-for="Marca" class="text-danger"></span>
                     </div>
-                </div>
-                <div class="col-md-12 row">
                     <div class="col-md-5">
                         <label asp-for="Modelo" class="control-label"></label>
                         <input asp-for="Modelo" class="form-control" />
                         <span asp-validation-for="Modelo" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-12 row">
+                    <div class="col-md-5">
+                        <label asp-for="Processador" class="control-label"></label>
+                        <input asp-for="Processador" class="form-control" />
+                        <span asp-validation-for="Processador" class="text-danger"></span>
                     </div>
                     <div class="col-md-3">
                         <label asp-for="Memoria" class="control-label"></label>

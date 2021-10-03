@@ -20,7 +20,7 @@ namespace Pk.Models
         public string Responsavel { get; set; }
         [Display(Name = "Observação")]
         public string Observacao { get; set; }
-        public ICollection<Movimentacao> Movimentacoes { get; set; }
+        public ICollection<MovimentacaoComputador> MovimentacoesPc { get; set; }
 
     }
 }

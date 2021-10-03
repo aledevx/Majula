@@ -18,6 +18,6 @@ namespace Pk.Models
         public string Status { get; set; }
         [Display(Name = "Observação")]
         public string Observacao { get; set; }
-        public ICollection<Movimentacao> Movimentacoes { get; set; }
+        public ICollection<MovimentacaoMonitor> MovimentacoesMonitor { get; set; }
     }
 }
