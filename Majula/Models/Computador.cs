@@ -8,12 +8,14 @@ namespace Pk.Models
         public int Id { get; set; }
         [Required(ErrorMessage = "Esse campo não pode ficar em branco.")]
         public string Tombamento { get; set; }
-        public string Marca { get; set; }
-        public string Modelo { get; set; }
-        public string Processador { get; set; }
-        [Display(Name = "Memória")]
-        public string Memoria { get; set; }
-        [Display(Name = "Armazenamento interno")]
+        public int MarcaId { get; set; }
+        public Marca Marca { get; set; }
+        public int ModeloId { get; set; }
+        public Modelo Modelo { get; set; }
+        public int ProcessadorId { get; set; }
+        public Processador Processador { get; set; }
+        public int MemoriaId { get; set; }
+        public Memoria Memoria { get; set; }
         public string ArmazenamentoInterno { get; set; }
         public string Status { get; set; }
         [Display(Name = "Responsável")]

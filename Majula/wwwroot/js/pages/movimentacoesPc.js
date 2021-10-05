@@ -3,7 +3,7 @@ const urlPost = `/MovimentacoesPc/PostMovimentacao/`
 
 var banco_objeto = new Object();
 
-var pcId = document.getElementById().value;
+var pcId = document.getElementById('Id').value;
 
 
 GetMovimentacao(pcId);
@@ -27,7 +27,8 @@ function PostMovimentacao() {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(objeto_movimentacao),
-    }).then(response => response.json)
+    }).then(response => response.json(GetMovimentacao(pcId)))
+
 
 }
 
@@ -35,6 +36,30 @@ function PostMovimentacao() {
 function GetMovimentacao(id) {
     fetch(urlGetLista + id).then(responde => responde.json()).then(ObjetoMovimentacao => {
         banco_objeto = ObjetoMovimentacao
-        console.log(banco_objeto);
+        atualizar();
     })
+}
+
+function GerarHtml(Setor, DataAtual) {
+    const dl_setor = document.createElement('dl');
+    dl_setor.classList.add('row');
+    dl_setor.innerHTML = `
+ <dt class="col-sm-3">Setor atual</dt>
+ <dd class="col-sm-2">${Setor}</dd>
+ <dt class="col-sm-4">Data movimentação</dt>
+ <dd class="col-sm-3">${DataAtual}</dd>
+ `
+    document.getElementById('setorAtualPc').appendChild(dl_setor);
+}
+
+function limparSetor() {
+    const setor = document.getElementById('setorAtualPc');
+    while (setor.firstChild) {
+        setor.removeChild(setor.lastChild);
+    }
+}
+
+function atualizar() {
+    limparSetor();
+    GerarHtml(banco_objeto.setor, banco_objeto.dataAtual);
 }

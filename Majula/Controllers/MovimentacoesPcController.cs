@@ -23,6 +23,7 @@ namespace Majula.Controllers
 
             if (ModelState.IsValid)
             {
+                Desativar(movimentacaoPc.ComputadorId);
                 movimentacaoPc.DataAtual = DateTime.Now;
                 _context.Add(movimentacaoPc);
                 await _context.SaveChangesAsync();
@@ -31,12 +32,18 @@ namespace Majula.Controllers
             return Json(movimentacaoPc);
         }
         [HttpGet]
-        public IActionResult GetListaMovimentacaoPc(int computadorId)
+        public IActionResult GetListaMovimentacao(int id)
         {
-            var movimentacoes = _context.MovimentacoesPc.Where(m => m.ComputadorId == computadorId).OrderByDescending(m => m.DataAtual);
-            return Json(movimentacoes);
+            var mov = _context.MovimentacoesPc.FirstOrDefault(c => c.ComputadorId == id && c.Ativo == true);
+            return Json(mov);
         }
-
+        public void Desativar(int computadorId)
+        {
+            var mov = _context.MovimentacoesPc.FirstOrDefault(c => c.ComputadorId == computadorId && c.Ativo == true);
+            mov.Ativo = false;
+            _context.Update(mov);
+            _context.SaveChanges();
+        }
 
     }
 }

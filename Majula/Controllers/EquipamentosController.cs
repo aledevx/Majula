@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Pk.Data;
 using Pk.Models;
@@ -29,6 +30,7 @@ namespace Pk.Controllers
         {
             ViewBag.Status = _geradorListas.ListaStatus();
             ViewBag.Categoria = _geradorListas.ListaCategoria();
+            ViewData["MarcaId"] = new SelectList(_context.Marcas, "Id", "Descricao");
             return View();
         }
         [HttpPost]
@@ -68,6 +70,8 @@ namespace Pk.Controllers
             }
 
             var equipamento = await _context.Equipamentos.FindAsync(id);
+            ViewBag.Categoria = _geradorListas.ListaCategoria();
+            ViewData["MarcaId"] = new SelectList(_context.Marcas, "Id", "Descricao");
 
             if (equipamento == null)
             {

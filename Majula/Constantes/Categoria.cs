@@ -6,5 +6,6 @@ namespace Pk.Constantes
         public const string Nobreak = "Nobreak";
         public const string Scanner = "Scanner";
         public const string Switch = "Switch";
+        public const string Outros = "Outros";
     }
 }

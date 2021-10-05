@@ -21,31 +21,34 @@
                         <span asp-validation-for="Tombamento" class="text-danger"></span>
                     </div>
                     <div class="col-md-3">
-                        <label asp-for="Marca" class="control-label"></label>
-                        <input asp-for="Marca" class="form-control" />
-                        <span asp-validation-for="Marca" class="text-danger"></span>
+                        <label asp-for="MarcaId" class="control-label">Marca</label>
+                        <select asp-for="MarcaId" class="form-control" asp-items="ViewBag.MarcaId" required>
+                            <option value="">Selecione...</option>
+                        </select>
                     </div>
                     <div class="col-md-5">
-                        <label asp-for="Modelo" class="control-label"></label>
-                        <input asp-for="Modelo" class="form-control" />
-                        <span asp-validation-for="Modelo" class="text-danger"></span>
+                        <label asp-for="ModeloId" class="control-label">Modelo</label>
+                        <select asp-for="ModeloId" class="form-control" asp-items="ViewBag.ModeloId" required>
+                            <option value="">Selecione...</option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-md-12 row">
                     <div class="col-md-5">
-                        <label asp-for="Processador" class="control-label"></label>
-                        <input asp-for="Processador" class="form-control" />
-                        <span asp-validation-for="Processador" class="text-danger"></span>
+                        <label asp-for="ProcessadorId" class="control-label">Processador</label>
+                        <select asp-for="ProcessadorId" class="form-control" asp-items="ViewBag.ProcessadorId" required>
+                            <option value="">Selecione...</option>
+                        </select>
                     </div>
                     <div class="col-md-3">
-                        <label asp-for="Memoria" class="control-label"></label>
-                        <input asp-for="Memoria" class="form-control" />
-                        <span asp-validation-for="Memoria" class="text-danger"></span>
+                        <label asp-for="MemoriaId" class="control-label">Memória</label>
+                        <select asp-for="MemoriaId" class="form-control" asp-items="ViewBag.MemoriaId" required>
+                            <option value="">Selecione...</option>
+                        </select>
                     </div>
                     <div class="col-md-4">
                         <label asp-for="ArmazenamentoInterno" class="control-label"></label>
-                        <input asp-for="ArmazenamentoInterno" class="form-control" />
-                        <span asp-validation-for="ArmazenamentoInterno" class="text-danger"></span>
+                        <select asp-for="ArmazenamentoInterno" class="form-control" asp-items="ViewBag.ArmazenamentoInterno"></select>
                     </div>
                 </div>
                 <div class="col-md-12 row">

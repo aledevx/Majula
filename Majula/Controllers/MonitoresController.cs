@@ -119,6 +119,7 @@ namespace Pk.Controllers
             var monitor = new Monitor();
             monitor.ComputadorId = computadorId;
             ViewBag.Status = _geradorListas.ListaStatus();
+            ViewData["MarcaId"] = new SelectList(_context.Marcas, "Id", "Descricao");
             return View(monitor);
         }
         [HttpPost]
@@ -174,7 +175,8 @@ namespace Pk.Controllers
                 return NotFound();
             }
 
-            var monitor = await _context.Monitores.FirstOrDefaultAsync(m => m.Id == id);
+            var monitor = await _context.Monitores.Include(m => m.Marca)
+            .FirstOrDefaultAsync(m => m.Id == id);
 
             if (monitor == null)
             {
@@ -192,6 +194,7 @@ namespace Pk.Controllers
             }
 
             ViewBag.Status = _geradorListas.ListaStatus();
+            ViewData["MarcaId"] = new SelectList(_context.Marcas, "Id", "Descricao");
             var monitor = await _context.Monitores.FindAsync(id);
 
             if (monitor == null)

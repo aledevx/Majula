@@ -29,20 +29,20 @@ namespace Pk.Migrations
                     b.Property<string>("ArmazenamentoInterno")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Marca")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("MarcaId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Memoria")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("MemoriaId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Modelo")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ModeloId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Observacao")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Processador")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ProcessadorId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Responsavel")
                         .HasColumnType("nvarchar(max)");
@@ -55,6 +55,14 @@ namespace Pk.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MarcaId");
+
+                    b.HasIndex("MemoriaId");
+
+                    b.HasIndex("ModeloId");
+
+                    b.HasIndex("ProcessadorId");
 
                     b.ToTable("Computadores");
                 });
@@ -67,27 +75,15 @@ namespace Pk.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Categoria")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Cautela")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Descricao")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Destino")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("MarcaId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Observacao")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Origem")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProcessoAquisicao")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Responsavel")
@@ -102,7 +98,54 @@ namespace Pk.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("MarcaId");
+
                     b.ToTable("Equipamentos");
+                });
+
+            modelBuilder.Entity("Pk.Models.Marca", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Descricao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Marcas");
+                });
+
+            modelBuilder.Entity("Pk.Models.Memoria", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Descricao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Memorias");
+                });
+
+            modelBuilder.Entity("Pk.Models.Modelo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Descricao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Modelos");
                 });
 
             modelBuilder.Entity("Pk.Models.Monitor", b =>
@@ -119,9 +162,8 @@ namespace Pk.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Marca")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("MarcaId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Observacao")
                         .HasColumnType("nvarchar(max)");
@@ -136,6 +178,8 @@ namespace Pk.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ComputadorId");
+
+                    b.HasIndex("MarcaId");
 
                     b.ToTable("Monitores");
                 });
@@ -218,13 +262,100 @@ namespace Pk.Migrations
                     b.ToTable("MovimentacoesMonitor");
                 });
 
+            modelBuilder.Entity("Pk.Models.Processador", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Descricao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Processadores");
+                });
+
+            modelBuilder.Entity("Pk.Models.Setor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Descricao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Sigla")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Setores");
+                });
+
+            modelBuilder.Entity("Pk.Models.Computador", b =>
+                {
+                    b.HasOne("Pk.Models.Marca", "Marca")
+                        .WithMany()
+                        .HasForeignKey("MarcaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Pk.Models.Memoria", "Memoria")
+                        .WithMany()
+                        .HasForeignKey("MemoriaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Pk.Models.Modelo", "Modelo")
+                        .WithMany()
+                        .HasForeignKey("ModeloId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Pk.Models.Processador", "Processador")
+                        .WithMany()
+                        .HasForeignKey("ProcessadorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Marca");
+
+                    b.Navigation("Memoria");
+
+                    b.Navigation("Modelo");
+
+                    b.Navigation("Processador");
+                });
+
+            modelBuilder.Entity("Pk.Models.Equipamento", b =>
+                {
+                    b.HasOne("Pk.Models.Marca", "Marca")
+                        .WithMany()
+                        .HasForeignKey("MarcaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Marca");
+                });
+
             modelBuilder.Entity("Pk.Models.Monitor", b =>
                 {
                     b.HasOne("Pk.Models.Computador", "Computador")
                         .WithMany()
                         .HasForeignKey("ComputadorId");
 
+                    b.HasOne("Pk.Models.Marca", "Marca")
+                        .WithMany()
+                        .HasForeignKey("MarcaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Computador");
+
+                    b.Navigation("Marca");
                 });
 
             modelBuilder.Entity("Pk.Models.MovimentacaoComputador", b =>

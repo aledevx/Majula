@@ -19,8 +19,13 @@
         </div>
         <div class="card-body">
             <dl class="row">
+                <input type="hidden" asp-for="Id">
                 <dt class="col-sm-5">
-                    @Html.DisplayNameFor(model => model.Tombamento)
+                    @Html.DisplayNameFor(model => model.Tombamento): <a href="" class="botao-acao1-monitor"
+                        data-toggle="modal" data-target="#modalMovimentacaoMonitor"><i
+                            class="fas fa-exchange-alt"></i></a>
+                    <a class="botao-acao3-monitor" asp-action="Editar" asp-route-id="@Model.Id"><i
+                            class="fas fa-cogs"></i></a>
                 </dt>
                 <dd class="col-sm-7">
                     @Html.DisplayFor(model => model.Tombamento)
@@ -63,78 +68,16 @@
     @*
         TABELA MOVIMENTAÇÃO
     *@
-    <div class="card card-movimentacao">
-        <div class="card-header bg-header-movimentacao">
-            <h5> <b>Movimentações</b></h5>
-        </div>
-        <div class="card-body" style="padding: 0px;">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Setor</th>
-                        <th>Data</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            GTI
-                        </td>
-                        <td>
-                            10/04/2021 09:45
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            GTI
-                        </td>
-                        <td>
-                            10/04/2021 09:45
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            GTI
-                        </td>
-                        <td>
-                            10/04/2021 09:45
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <div class="card d-flex" style="width: 650px;">
+        <div class="card-header" id="setorAtualMonitor" style="border: 2px solid red;">
 
-    </div>
-
-
-    @*
-        MODAL MOVIMENTAÇÃO
-    *@
-    <div class="modal fade" id="modalMovimentacao" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Destino</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="Setor" class="col-form-label">Setor:</label>
-                        <input type="text" class="form-control" id="ModalSetor">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                    <input type="submit" class="btn btn-primary" data-dismiss="modal" onclick="addItem()" />
-                </div>
-            </div>
         </div>
     </div>
+
+
 
 </body>
 
-<script src="~/js/pages/movimentacaoMonitor.js" asp-append-version="true"></script>
+@Html.Partial("/Views/Shared/_ModalMovimentacaoMonitor.cshtml")
+
 </html>

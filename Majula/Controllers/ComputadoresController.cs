@@ -30,7 +30,12 @@ namespace Pk.Controllers
 
         public IActionResult Criar()
         {
+            ViewBag.ArmazenamentoInterno = _geradorListas.ListaArmazenamento();
             ViewBag.Status = _geradorListas.ListaStatus();
+            ViewData["MarcaId"] = new SelectList(_context.Marcas, "Id", "Descricao");
+            ViewData["ModeloId"] = new SelectList(_context.Modelos, "Id", "Descricao");
+            ViewData["ProcessadorId"] = new SelectList(_context.Processadores, "Id", "Descricao");
+            ViewData["MemoriaId"] = new SelectList(_context.Memorias, "Id", "Descricao");
             return View();
         }
         [HttpPost]
@@ -52,7 +57,11 @@ namespace Pk.Controllers
                 return NotFound();
             }
 
-            var computador = await _context.Computadores.FirstOrDefaultAsync(c => c.Id == id);
+            var computador = await _context.Computadores.Include(c => c.Marca)
+            .Include(c => c.Modelo)
+            .Include(c => c.Processador)
+            .Include(c => c.Memoria)
+            .FirstOrDefaultAsync(c => c.Id == id);
 
             if (computador == null)
             {
@@ -72,6 +81,11 @@ namespace Pk.Controllers
 
             var computador = _context.Computadores.FirstOrDefault(c => c.Id == id);
             ViewBag.Status = _geradorListas.ListaStatus();
+            ViewBag.ArmazenamentoInterno = _geradorListas.ListaArmazenamento();
+            ViewData["MarcaId"] = new SelectList(_context.Marcas, "Id", "Descricao");
+            ViewData["ModeloId"] = new SelectList(_context.Modelos, "Id", "Descricao");
+            ViewData["ProcessadorId"] = new SelectList(_context.Processadores, "Id", "Descricao");
+            ViewData["MemoriaId"] = new SelectList(_context.Memorias, "Id", "Descricao");
             if (computador == null)
             {
                 return NotFound();

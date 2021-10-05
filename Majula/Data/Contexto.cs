@@ -16,5 +16,10 @@ namespace Pk.Data
         public DbSet<MovimentacaoComputador> MovimentacoesPc { get; set; }
         public DbSet<MovimentacaoMonitor> MovimentacoesMonitor { get; set; }
         public DbSet<MovimentacaoEquipamento> MovimentacoesEquipamento { get; set; }
+        public DbSet<Marca> Marcas { get; set; }
+        public DbSet<Modelo> Modelos { get; set; }
+        public DbSet<Processador> Processadores { get; set; }
+        public DbSet<Memoria> Memorias { get; set; }
+        public DbSet<Setor> Setores { get; set;} 
     }
 }
