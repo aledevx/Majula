@@ -1,0 +1,42 @@
+@model IEnumerable<Pk.Models.Modelo>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+
+<body>
+    <div class="col-md-12 div-titulo">
+        <div class="col-md-6">
+            <h1>Modelos</h1>
+        </div>
+        <div class=" col-md-6 container-tabela">
+            <a asp-action="Criar" class="botao-add"><i class="fas fa-plus"></i></a>
+        </div>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Descricao)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descricao)
+                    </td>
+                    <td>
+                        <a asp-action="Editar" asp-route-id="@item.Id" class="botao-editar">
+                            <b><i class="fas fa-edit" style="margin-right: 10px;"></i>Editar</b>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>

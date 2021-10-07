@@ -41,7 +41,7 @@ namespace Pk.Controllers
 
         public async Task<IActionResult> Editar(int? id)
         {
-            var setor = await _context.Setores.FindAsync();
+            var setor = await _context.Setores.FindAsync(id);
             return View(setor);
         }
 

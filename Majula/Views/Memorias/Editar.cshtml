@@ -1,0 +1,38 @@
+@model Pk.Models.Memoria
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Editar</title>
+</head>
+
+<body>
+    <div class="container">
+        <h4 style="display: flex; justify-content: center;">Editar</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-12">
+                <form asp-action="Editar">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <div class="form-group row">
+                        <div class="col-md-9">
+                            <label asp-for="Descricao" class="control-label"></label>
+                            <textarea asp-for="Descricao" class="form-control"></textarea>
+                            <span asp-validation-for="Descricao" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group ">
+                        <a asp-action="Index" class="btn btn-secondary"><b><i class="fas fa-arrow-left"
+                                    style="margin-right: 10px;"></i>Voltar</b></a>
+                        <input type="submit" value="Salvar" class="btn btn-success" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

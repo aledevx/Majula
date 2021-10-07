@@ -40,9 +40,13 @@ namespace Majula.Controllers
         public void Desativar(int computadorId)
         {
             var mov = _context.MovimentacoesPc.FirstOrDefault(c => c.ComputadorId == computadorId && c.Ativo == true);
-            mov.Ativo = false;
-            _context.Update(mov);
-            _context.SaveChanges();
+            if (mov != null)
+            {
+                mov.Ativo = false;
+                _context.Update(mov);
+                _context.SaveChanges();
+            }
+
         }
 
     }
