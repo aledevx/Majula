@@ -34,7 +34,7 @@
                     @Html.DisplayNameFor(model => model.Marca)
                 </dt>
                 <dd class="col-sm-7 border-top-card-body">
-                    @Html.DisplayFor(model => model.Marca)
+                    @Html.DisplayFor(model => model.Marca.Descricao)
                 </dd>
                 <dt class="col-sm-5 border-top-card-body">
                     @Html.DisplayNameFor(model => model.Descricao)
@@ -45,9 +45,18 @@
                 <dt class="col-sm-5 border-top-card-body">
                     @Html.DisplayNameFor(model => model.Computador)
                 </dt>
-                <dd class="col-sm-7 border-top-card-body">
-                    @Html.DisplayFor(model => model.Computador.Tombamento)
-                </dd>
+                @if (Model.Computador is null)
+                {
+                    <dd class="col-sm-7 border-top-card-body text-danger">
+                        Sem computador vinculado
+                    </dd>
+                }
+                else
+                {
+                    <dd class="col-sm-7 border-top-card-body">
+                        @Html.DisplayFor(model => model.Computador.Tombamento)
+                    </dd>
+                }
                 <dt class="col-sm-5 border-top-card-body">
                     @Html.DisplayNameFor(model => model.Status)
                 </dt>

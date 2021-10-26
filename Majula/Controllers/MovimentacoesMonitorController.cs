@@ -18,13 +18,14 @@ namespace Majula.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostMovimentacao([FromBody] MovimentacaoMonitor movimentacaoMonitor)
+        public async Task<IActionResult> PostMovimentacaoMonitor([FromBody] MovimentacaoMonitor movimentacaoMonitor)
         {
 
             if (ModelState.IsValid)
             {
+                // Só funciona a primeira vez se tirar o 'Desativar', pois ele cai no método e ñ volta, 
+                //afinal ele é o primeiro da lista dai ñ tem como desativar o proximo
                 Desativar(movimentacaoMonitor.MonitorId);
-                movimentacaoMonitor.DataAtual = DateTime.Now;
                 _context.Add(movimentacaoMonitor);
                 await _context.SaveChangesAsync();
                 return Ok();
@@ -32,9 +33,9 @@ namespace Majula.Controllers
             return Json(movimentacaoMonitor);
         }
         [HttpGet]
-        public IActionResult GetListaMovimentacao(int id)
+        public IActionResult GetListaMovimentacaoMonitor(int id)
         {
-            var mov = _context.MovimentacoesMonitor.FirstOrDefault(c => c.MonitorId == id && c.Ativo == true);
+            var mov = _context.MovimentacoesMonitor.Include(m => m.Setor).FirstOrDefault(c => c.MonitorId == id && c.Ativo == true);
             return Json(mov);
         }
 

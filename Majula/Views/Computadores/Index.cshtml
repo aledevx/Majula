@@ -31,6 +31,9 @@
                     @Html.DisplayNameFor(model => model.Tombamento)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.Marca)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.Modelo)
                 </th>
                 <th>
@@ -52,7 +55,10 @@
                         @Html.DisplayFor(modelItem => item.Tombamento)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Modelo)
+                        @Html.DisplayFor(modelItem => item.Marca.Descricao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Modelo.Descricao)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Status)

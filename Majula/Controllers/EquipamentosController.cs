@@ -12,7 +12,7 @@ namespace Pk.Controllers
     public class EquipamentosController : Controller
     {
         private readonly Contexto _context;
-         private readonly GeradorListas _geradorListas;
+        private readonly GeradorListas _geradorListas;
 
         public EquipamentosController(Contexto context, GeradorListas geradorListas)
         {
@@ -88,21 +88,21 @@ namespace Pk.Controllers
             {
                 _context.Update(equipamento);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Detalhes", "Equipamentos", new {id = equipamento.Id});
+                return RedirectToAction("Detalhes", "Equipamentos", new { id = equipamento.Id });
             }
             return View();
         }
 
         public IActionResult Excluir(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
             var equipamento = _context.Equipamentos.Find(id);
 
-            if(equipamento == null)
+            if (equipamento == null)
             {
                 return NotFound();
             }
@@ -110,9 +110,9 @@ namespace Pk.Controllers
             return View(equipamento);
         }
         [HttpPost, ActionName("Delete")]
-        public async Task<IActionResult> ConfirmarExclussao( Equipamento equipamento)
+        public async Task<IActionResult> ConfirmarExclussao(Equipamento equipamento)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _context.Remove(equipamento);
                 await _context.SaveChangesAsync();
@@ -121,5 +121,12 @@ namespace Pk.Controllers
             return View();
         }
 
+        public async Task<JsonResult> Dados()
+        {
+            var equipamento =  _context.Equipamentos.GroupBy(p => p.Categoria)
+                   .Select(g => new { name = g.Key, count = g.Count() });
+   
+            return Json(await equipamento.ToListAsync());
+        }
     }
 }

@@ -24,7 +24,7 @@ namespace Pk.Controllers
 
         public IActionResult Index()
         {
-            var computadores = _context.Computadores;
+            var computadores = _context.Computadores.Include(c => c.Marca).Include(c => c.Modelo);
             return View(computadores.ToList());
         }
 

@@ -6,3 +6,107 @@
 <a class="btn btn-danger" asp-area="" asp-controller="Modelos" asp-action="Index">Modelos</a>
 <a class="btn btn-danger" asp-area="" asp-controller="Processadores" asp-action="Index">Processadores</a>
 <a class="btn btn-danger" asp-area="" asp-controller="Setores" asp-action="Index">Setores</a>
+
+<!-- SELECT Categoria,
+        Count(Tombamento) as Quantidade
+  FROM [Db_Pk].[dbo].[Equipamentos]
+Group by Categoria -->
+
+
+<canvas id="myChart" width="100" height="20"></canvas>
+<br>
+<h2 id="total"></h2>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
+<script>
+
+    const urlGet = '/Equipamentos/Dados/'
+    let banco_objetos = [];
+    var descricao = [];
+    var quantidade = [];
+
+    var total_equipamentos = 0;
+
+
+
+
+    async function getEquipamentos() {
+        await fetch(urlGet).then(response => response.json()).then(ObjEquip => {
+            banco_objetos = ObjEquip;
+            for (let i = 0; i < banco_objetos.length; i++) {
+                descricao[i] = banco_objetos[i].name;
+                quantidade[i] = banco_objetos[i].count;
+                total_equipamentos = total_equipamentos + quantidade[i];
+            }
+            const total = document.createElement('h1');
+            total.innerHTML = `TOTAL DE EQUIPAMENTOS: <strong>${total_equipamentos}</strong>`
+            document.getElementById('total').appendChild(total);
+            console.log(banco_objetos);
+            console.log(ObjEquip);
+            console.log(descricao);
+            console.log(quantidade);
+        })
+        meuChart();
+    }
+
+
+    getEquipamentos();
+
+    function meuChart() {
+        var ctx = document.getElementById('myChart');
+
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: descricao,
+                datasets: [{
+                    label: '# of Votes',
+                    data: quantidade,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    },
+                    x:{
+                    display: true,
+                    title: {
+                        display: true,
+                        text: 'Quantidade de equipamentos por tipo',
+                        color: '#911',
+                        font: {
+                            family: 'Comic Sans MS',
+                            size: 26,
+                            weight: 'bold',
+                            lineHeight: 1.2,
+                        },
+                        padding: { top: 20, left: 0, right: 0, bottom: 0 }
+                    }
+                }
+            }
+        }
+        });
+    }
+
+
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>

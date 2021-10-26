@@ -52,5 +52,11 @@ namespace Pk.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        public IActionResult GetSetores()
+        {
+            var setores = _context.Setores.ToList();
+            return Json(setores);
+        }
     }
 }
