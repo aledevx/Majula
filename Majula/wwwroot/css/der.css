@@ -39,7 +39,7 @@ body {
     color: #4DC5C5;
     font-weight: bolder;
     border-left: 2px solid #60FC6F;
-    transition: ease 4.3s;
+    transition: ease 2s;
 }
 
 .botao-add {
@@ -52,12 +52,12 @@ body {
     border-radius: 8px;
     color: #f1f1f1;
     margin-right: 0px;
+    transition: ease 0.2s;
 }
 
 .botao-add:hover {
     color: #f1f1f1;
     transform: scale(1.2);
-    transition: ease 0.2s;
 }
 
 .botao-visualizar {
@@ -285,6 +285,26 @@ body {
 .botao-acao3-monitor:hover {
     color: #f1f1f1;
     background: #ce5f15;
+}
+.botao-acao2-monitor {
+    display: flex;
+    height: 30px;
+    width: 80px;
+    margin-top: 45px;
+    margin-left: 420px;
+    justify-content: center;
+    align-items: center;
+    background: #ce1cf2;
+    color: #f1f1f1;
+    position: absolute;
+    z-index: 1;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.botao-acao2-monitor:hover {
+    color: #f1f1f1;
+    background: #a716c4;
 }
 
 .botao-acao4 {

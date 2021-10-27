@@ -26,6 +26,8 @@
                             class="fas fa-exchange-alt"></i></a>
                     <a class="botao-acao3-monitor" asp-action="Editar" asp-route-id="@Model.Id"><i
                             class="fas fa-cogs"></i></a>
+                    <a href="" class="botao-acao2-monitor" data-toggle="modal" data-target="#modalHistoricoMovimentacaoMonitor"><i
+                            class="fas fa-history"></i></a>
                 </dt>
                 <dd class="col-sm-7">
                     @Html.DisplayFor(model => model.Tombamento)
@@ -88,5 +90,6 @@
 </body>
 
 @Html.Partial("/Views/Shared/_ModalMovimentacaoMonitor.cshtml")
+@Html.Partial("/Views/Shared/_ModalHistoricoMovimentacaoMonitor.cshtml")
 
 </html>
