@@ -71,6 +71,7 @@ namespace Pk.Controllers
 
             var equipamento = await _context.Equipamentos.FindAsync(id);
             ViewBag.Categoria = _geradorListas.ListaCategoria();
+            ViewBag.Status = _geradorListas.ListaStatus();
             ViewData["MarcaId"] = new SelectList(_context.Marcas, "Id", "Descricao");
 
             if (equipamento == null)

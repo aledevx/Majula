@@ -25,6 +25,7 @@ namespace Majula.Controllers
             {
                 // Só funciona a primeira vez se tirar o 'Desativar', pois ele cai no método e ñ volta, 
                 //afinal ele é o primeiro da lista dai ñ tem como desativar o proximo
+                
                 Desativar(movimentacaoMonitor.MonitorId);
                 _context.Add(movimentacaoMonitor);
                 await _context.SaveChangesAsync();

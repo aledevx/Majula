@@ -41,12 +41,32 @@ namespace Pk.Controllers
         [HttpPost]
         public async Task<ActionResult> Criar(Computador computador)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(computador);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _context.Add(computador);
+                    await _context.SaveChangesAsync();
+                    var setorGTI = _context.Setores.Where(setor => setor.Sigla == "GTI").FirstOrDefault();
+                    MovimentacaoComputador movComputador = new MovimentacaoComputador();
+
+                    movComputador.ComputadorId = computador.Id;
+                    movComputador.SetorId = setorGTI.Id;
+                    movComputador.DataAtual = DateTime.Now;
+                    movComputador.Ativo = true;
+
+                    _context.Add(movComputador);
+                    await _context.SaveChangesAsync();
+
+                    return RedirectToAction("Detalhes", "Computadores", computador.Id);
+                }
             }
+            catch (System.Exception mensagem)
+            {
+
+                throw new Exception("Error ", mensagem);
+            }
+
             return View();
         }
 

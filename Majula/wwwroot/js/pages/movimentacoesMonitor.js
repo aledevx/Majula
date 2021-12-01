@@ -1,6 +1,6 @@
-const urlGet = `/MovimentacoesMonitor/GetListaMovimentacaoMonitor/`
+const urlGetSetorAtualMonitor = `/MovimentacoesMonitor/GetListaMovimentacaoMonitor/`
 const urlPostMovMonitor = `/MovimentacoesMonitor/PostMovimentacaoMonitor/`
-const urlGetSetores = `/Setores/GetSetores/`
+const urlGetSetoresMonitor = `/Setores/GetSetores/`
 
 var banco_objeto = new Object();
 
@@ -13,10 +13,10 @@ var monitorId = document.getElementById('Id').value;
 
 GetMovimentacao(monitorId);
 
-getSetores();
+getSetoresMonitor();
 
-function getSetores(){
-    fetch(urlGetSetores).then(responde => responde.json())
+function getSetoresMonitor(){
+    fetch(urlGetSetoresMonitor).then(responde => responde.json())
     .then(Setores => {
         banco_setores_dropdown = Setores
         let option;
@@ -58,7 +58,7 @@ function PostMovimentacaoMonitor() {
 }
 
 function GetMovimentacao(id) {
-    fetch(urlGet + id).then(responde => responde.json()).then(ObjetoMovimentacao => {
+    fetch(urlGetSetorAtualMonitor + id).then(responde => responde.json()).then(ObjetoMovimentacao => {
         banco_objeto = ObjetoMovimentacao
         atualizar();
 

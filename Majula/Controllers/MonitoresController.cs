@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -46,25 +48,29 @@ namespace Pk.Controllers
         public async Task<IActionResult> Index(string searchString)
         {
 
-            var monitores = from m in _context.Monitores
-                            select m;
+            // var monitores = from m in _context.Monitores
+            // select m; 
+
+
+            var monitores = _context.Monitores.Include(m => m.Marca);
+            // Convertendo um enumerable em uma Lista
+            List<Monitor> monitores2 = monitores.ToList();
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                monitores = monitores.Where(s => s.Tombamento.Contains(searchString));
+                monitores2 = monitores2.Where(s => s.Tombamento.Contains(searchString)).ToList();
                 ViewBag.monitorNaoEncontrado = false;
             }
             else
             {
                 ViewBag.monitorNaoEncontrado = true;
             }
-            return View(await monitores.ToListAsync());
+            return View(monitores2);
         }
 
         public async Task<IActionResult> Vincular(int id, int computadorId)
         {
             var monitor = await _context.Monitores.FindAsync(id);
-
             monitor.ComputadorId = computadorId;
             _context.Update(monitor);
             await _context.SaveChangesAsync();
@@ -125,22 +131,41 @@ namespace Pk.Controllers
         [HttpPost]
         public async Task<IActionResult> Criar(Monitor monitor)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(monitor);
-                await _context.SaveChangesAsync();
-                if (monitor.ComputadorId == null)
+                if (ModelState.IsValid)
                 {
-                    return RedirectToAction(nameof(Index));
-                }
-                else
-                {
-                    return RedirectToAction("Detalhes", "Computadores", new { id = monitor.ComputadorId });
+
+                    _context.Add(monitor);
+                    await _context.SaveChangesAsync();
+                    var setorGti = _context.Setores.Where(setor => setor.Sigla == "GTI").FirstOrDefault();
+                    MovimentacaoMonitor movMonitor = new MovimentacaoMonitor();
+                    movMonitor.MonitorId = monitor.Id;
+                    movMonitor.SetorId = setorGti.Id;
+                    movMonitor.DataAtual = DateTime.Now;
+                    movMonitor.Ativo = true;
+                    _context.Add(movMonitor);
+                    await _context.SaveChangesAsync();
+                    if (monitor.ComputadorId == null)
+                    {
+                        return RedirectToAction("Detalhes", "Monitores", new { id = monitor.Id});
+                    }
+                    else
+                    {
+                        return RedirectToAction("Detalhes", "Computadores", new { id = monitor.ComputadorId });
+                    }
+
                 }
 
+                return View();
+            }
+            catch (System.Exception mensagem)
+            {
+
+                throw new Exception("Put your error message here.", mensagem);
             }
 
-            return View();
+
         }
         public IActionResult AddMonitor(int? computadorId)
         {
