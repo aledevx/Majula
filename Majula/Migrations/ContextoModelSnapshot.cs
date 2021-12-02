@@ -350,7 +350,7 @@ namespace Pk.Migrations
             modelBuilder.Entity("Pk.Models.Monitor", b =>
                 {
                     b.HasOne("Pk.Models.Computador", "Computador")
-                        .WithMany()
+                        .WithMany("Monitores")
                         .HasForeignKey("ComputadorId");
 
                     b.HasOne("Pk.Models.Marca", "Marca")
@@ -423,6 +423,8 @@ namespace Pk.Migrations
 
             modelBuilder.Entity("Pk.Models.Computador", b =>
                 {
+                    b.Navigation("Monitores");
+
                     b.Navigation("MovimentacoesPc");
                 });
 

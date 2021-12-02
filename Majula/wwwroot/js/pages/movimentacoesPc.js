@@ -1,86 +1,91 @@
-const urlGetLista = `/MovimentacoesPc/GetListaMovimentacao/`
-const urlPost = `/MovimentacoesPc/PostMovimentacao/`
-const urlGetSetores = `/Setores/GetSetores/`
+const urlGetSetorAtualPc = `/MovimentacoesPc/GetListaMovimentacaoPc/`
+const urlPostMovPc = `/MovimentacoesPc/PostMovimentacao/`
+const urlGetSetoresPc = `/Setores/GetSetores/`
 
-var banco_objeto = new Object();
+var banco_objeto_pc = new Object();
 
-let setores = document.getElementById('pc_setorId');
-setores.length = 0;
+let setores_pc = document.getElementById('pc_setorId');
+setores_pc.length = 0;
 
-let banco_setores_dropdown = [];
+let banco_setores_dropdown_pc = [];
 
 var pcId = document.getElementById('Id').value;
- 
-getSetores();
- 
-function getSetores(){
-    fetch(urlGetSetores).then(responde => responde.json())
-    .then(Setores => {
-        banco_setores_dropdown = Setores
-        let option;
-        for (let i =0; i< Setores.length; i++){
-            option = document.createElement('option');
-            option.innerHTML = `
+
+GetMovimentacaoPc(pcId);
+getSetoresPc();
+
+function getSetoresPc() {
+    fetch(urlGetSetoresPc).then(responde => responde.json())
+        .then(Setores => {
+            banco_setores_dropdown_pc = Setores
+            let option;
+            for (let i = 0; i < Setores.length; i++) {
+                option = document.createElement('option');
+                option.innerHTML = `
             ${Setores[i].sigla} - ${Setores[i].descricao}
             `
-            option.id = Setores[i].id;
-            option.className = 'opt';
-            setores.add(option);
-        }
-    })
+                option.id = Setores[i].id;
+                option.className = 'opt';
+                setores_pc.add(option);
+            }
+        })
 }
 
-function PostMovimentacao() {
-    var dropdown_setor = document.getElementById('pc_setorId');
-    var setor_selecionado = dropdown_setor.options[dropdown_setor.selectedIndex].id;
+function PostMovimentacaoPc() {
+    var dropdown_setor_pc = document.getElementById('pc_setorId');
+    var setor_selecionado_pc = dropdown_setor_pc.options[dropdown_setor_pc.selectedIndex].id;
 
     const pc_Id = document.getElementById('Id');
 
 
     const objeto_movimentacao = {
-        "SetorId": setor_selecionado,
+        "SetorId": setor_selecionado_pc,
         "DataAtual": new Date(),
         "Ativo": true,
-        "PcId": pc_Id.value.trim()
+        "ComputadorId": pc_Id.value.trim()
     };
     console.log(objeto_movimentacao);
-    fetch(urlPost, {
+    fetch(urlPostMovPc, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(objeto_movimentacao),
-    }).then(response => response.json(GetMovimentacao(pcId)))
+    }).then(response => response.json(GetMovimentacaoPc(pcId)))
 
 }
 
-function GetMovimentacao(id) {
-    fetch(urlGet + id).then(responde => responde.json()).then(ObjetoMovimentacao => {
-        banco_objeto = ObjetoMovimentacao
+function GetMovimentacaoPc(id) {
+    fetch(urlGetSetorAtualPc + id).then(responde => responde.json()).then(ObjetoMovimentacao => {
+        banco_objeto_pc = ObjetoMovimentacao
         atualizar();
     })
 }
 
-function GerarHtml(SetorId, DataAtual) {
+function GerarHtmlPcMov(SetorId, DataAtual) {
     const dl_setor = document.createElement('dl');
+    var date = new Date(DataAtual);
+    var dataFormatada = (String(date.getHours()).padStart(2, '0')) + ":" + (String(date.getMinutes()).padStart(2, '0')) + " - " + (String(date.getDate()).padStart(2, '0')) + "/" + String((date.getMonth() + 1)).padStart(2, '0') + "/" + date.getFullYear();
+
     dl_setor.classList.add('row');
     dl_setor.innerHTML = `
  <dt class="col-sm-3">Setor atual</dt>
  <dd class="col-sm-2">${SetorId}</dd>
  <dt class="col-sm-4">Data movimentação</dt>
- <dd class="col-sm-3">${DataAtual}</dd>
+ <dd class="col-sm-3">${dataFormatada}</dd>
  `
-    document.getElementById('setorAtual').appendChild(dl_setor);
+    document.getElementById('setorAtualPc').appendChild(dl_setor);
+    console.log(banco_objeto_pc);
 }
 
-function limparSetor() {
-    const setor = document.getElementById('setorAtual');
+function limparSetorPcMov() {
+    const setor = document.getElementById('setorAtualPc');
     while (setor.firstChild) {
         setor.removeChild(setor.lastChild);
     }
 }
 
 function atualizar() {
-    limparSetor();
-    GerarHtml(banco_objeto.setor, banco_objeto.dataAtual);
+    limparSetorPcMov();
+    GerarHtmlPcMov(banco_objeto_pc.setor.sigla, banco_objeto_pc.dataAtual);
 }

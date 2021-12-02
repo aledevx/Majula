@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -36,12 +37,30 @@ namespace Pk.Controllers
         [HttpPost]
         public async Task<IActionResult> Criar(Equipamento equipamento)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(equipamento);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _context.Add(equipamento);
+                    await _context.SaveChangesAsync();
+                    var setorGTI = _context.Setores.Where(setor => setor.Sigla == "GTI").FirstOrDefault();
+                    MovimentacaoEquipamento movEquipamento = new MovimentacaoEquipamento();
+                    movEquipamento.EquipamentoId = equipamento.Id;
+                    movEquipamento.SetorId = setorGTI.Id;
+                    movEquipamento.DataAtual = DateTime.Now;
+                    movEquipamento.Ativo = true;
+                    _context.Add(movEquipamento);
+                    await _context.SaveChangesAsync();
+
+                    return RedirectToAction("Detalhes", "Equipamentos", new { id = equipamento.Id });
+                }
             }
+            catch (System.Exception mensagem)
+            {
+
+                throw new Exception("Error ", mensagem);
+            }
+
             return View();
         }
 
@@ -52,7 +71,8 @@ namespace Pk.Controllers
                 return NotFound();
             }
 
-            var equipamento = await _context.Equipamentos.FirstOrDefaultAsync(e => e.Id == id);
+            var equipamento = await _context.Equipamentos.Include(e => e.MovimentacoesEquipamento)
+            .Include(e => e.Marca).FirstOrDefaultAsync(e => e.Id == id);
 
             if (equipamento == null)
             {
@@ -124,9 +144,9 @@ namespace Pk.Controllers
 
         public async Task<JsonResult> Dados()
         {
-            var equipamento =  _context.Equipamentos.GroupBy(p => p.Categoria)
+            var equipamento = _context.Equipamentos.GroupBy(p => p.Categoria)
                    .Select(g => new { name = g.Key, count = g.Count() });
-   
+
             return Json(await equipamento.ToListAsync());
         }
     }

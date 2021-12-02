@@ -10,8 +10,8 @@ using Pk.Data;
 namespace Pk.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20211020193610_CorrecaoMovimentacaoMonitor")]
-    partial class CorrecaoMovimentacaoMonitor
+    [Migration("20211202125939_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -352,7 +352,7 @@ namespace Pk.Migrations
             modelBuilder.Entity("Pk.Models.Monitor", b =>
                 {
                     b.HasOne("Pk.Models.Computador", "Computador")
-                        .WithMany()
+                        .WithMany("Monitores")
                         .HasForeignKey("ComputadorId");
 
                     b.HasOne("Pk.Models.Marca", "Marca")
@@ -425,6 +425,8 @@ namespace Pk.Migrations
 
             modelBuilder.Entity("Pk.Models.Computador", b =>
                 {
+                    b.Navigation("Monitores");
+
                     b.Navigation("MovimentacoesPc");
                 });
 

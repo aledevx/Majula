@@ -23,6 +23,7 @@ namespace Pk.Models
         [Display(Name = "Observação")]
         public string Observacao { get; set; }
         public ICollection<MovimentacaoComputador> MovimentacoesPc { get; set; }
+        public ICollection<Monitor> Monitores { get; set; }
 
     }
 }

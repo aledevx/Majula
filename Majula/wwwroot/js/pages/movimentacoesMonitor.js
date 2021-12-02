@@ -12,7 +12,6 @@ let banco_setores_dropdown = [];
 var monitorId = document.getElementById('Id').value;
 
 GetMovimentacao(monitorId);
-
 getSetoresMonitor();
 
 function getSetoresMonitor(){

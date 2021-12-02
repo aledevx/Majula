@@ -30,6 +30,7 @@ namespace Pk
             services.AddDbContext<Contexto>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<GeradorListas>();
+            services.AddTransient<ServicosMovimentacoes>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -5,28 +5,28 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Pk.Data;
 using Pk.Models;
+using Pk.Services;
 
 namespace Majula.Controllers
 {
     public class MovimentacoesMonitorController : Controller
     {
         private readonly Contexto _context;
+        private readonly ServicosMovimentacoes _servicosMovimentacoes;
 
-        public MovimentacoesMonitorController(Contexto context)
+        public MovimentacoesMonitorController(Contexto context, ServicosMovimentacoes servicosMovimentacoes)
         {
             _context = context;
+            _servicosMovimentacoes = servicosMovimentacoes;
         }
 
         [HttpPost]
         public async Task<IActionResult> PostMovimentacaoMonitor([FromBody] MovimentacaoMonitor movimentacaoMonitor)
         {
-
             if (ModelState.IsValid)
             {
-                // Só funciona a primeira vez se tirar o 'Desativar', pois ele cai no método e ñ volta, 
-                //afinal ele é o primeiro da lista dai ñ tem como desativar o proximo
-                
-                Desativar(movimentacaoMonitor.MonitorId);
+                _servicosMovimentacoes.DesativarMovMonitor(movimentacaoMonitor.MonitorId);
+                movimentacaoMonitor.DataAtual = DateTime.Now;
                 _context.Add(movimentacaoMonitor);
                 await _context.SaveChangesAsync();
                 return Ok();
@@ -40,12 +40,5 @@ namespace Majula.Controllers
             return Json(mov);
         }
 
-        public void Desativar(int monitorId)
-        {
-            var mov = _context.MovimentacoesMonitor.FirstOrDefault(c => c.MonitorId == monitorId && c.Ativo == true);
-            mov.Ativo = false;
-            _context.Update(mov);
-            _context.SaveChanges();
-        }
     }
 }

@@ -5,58 +5,74 @@
 
 }
 
-
+<h3 style="height: 50px; width: 150px;">Computador</h3>
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-5 p-md-3" style="box-shadow: 0px 1px 2px 2px rgba(0, 0, 0, 0.25);">
         <form asp-action="Editar">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Tombamento" class="control-label"></label>
-                <input asp-for="Tombamento" class="form-control" />
-                <span asp-validation-for="Tombamento" class="text-danger"></span>
+            <div class="col-md-12 row">
+                <div class="col-md-4">
+                    <label asp-for="Tombamento" class="control-label"></label>
+                    <input asp-for="Tombamento" class="form-control" />
+                    <span asp-validation-for="Tombamento" class="text-danger"></span>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="MarcaId" class="control-label">Marca</label>
+                    <select asp-for="MarcaId" class="form-control" asp-items="ViewBag.MarcaId" required>
+                        <option value="">Selecione...</option>
+                    </select>
+                </div>
+                <div class="col-md-5">
+                    <label asp-for="ModeloId" class="control-label">Modelo</label>
+                    <select asp-for="ModeloId" class="form-control" asp-items="ViewBag.ModeloId" required>
+                        <option value="">Selecione...</option>
+                    </select>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Modelo" class="control-label"></label>
-                <input asp-for="Modelo" class="form-control" />
-                <span asp-validation-for="Modelo" class="text-danger"></span>
+            <div class="col-md-12 row">
+                <div class="col-md-5">
+                    <label asp-for="ProcessadorId" class="control-label">Processador</label>
+                    <select asp-for="ProcessadorId" class="form-control" asp-items="ViewBag.ProcessadorId" required>
+                        <option value="">Selecione...</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="MemoriaId" class="control-label">Memória</label>
+                    <select asp-for="MemoriaId" class="form-control" asp-items="ViewBag.MemoriaId" required>
+                        <option value="">Selecione...</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="ArmazenamentoInterno" class="control-label"></label>
+                    <select asp-for="ArmazenamentoInterno" class="form-control"
+                        asp-items="ViewBag.ArmazenamentoInterno"></select>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Processador" class="control-label"></label>
-                <input asp-for="Processador" class="form-control" />
-                <span asp-validation-for="Processador" class="text-danger"></span>
+            <div class="col-md-12 row">
+                <div class="col-md-3">
+                    <label asp-for="Status" class="control-label"></label>
+                    <select asp-for="Status" class="form-control" asp-items="ViewBag.Status"></select>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Memoria" class="control-label"></label>
-                <input asp-for="Memoria" class="form-control" />
-                <span asp-validation-for="Memoria" class="text-danger"></span>
+            <hr>
+            <div class="col-md-12 row">
+                <div class="col-md-6">
+                    <label asp-for="Responsavel" class="control-label"></label>
+                    <input asp-for="Responsavel" class="form-control" />
+                    <span asp-validation-for="Responsavel" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Observacao" class="control-label"></label>
+                    <textarea asp-for="Observacao" class="form-control"></textarea>
+                    <span asp-validation-for="Observacao" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="ArmazenamentoInterno" class="control-label"></label>
-                <input asp-for="ArmazenamentoInterno" class="form-control" />
-                <span asp-validation-for="ArmazenamentoInterno" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <select asp-for="Status" class="form-control" asp-items="ViewBag.Status"></select>
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Responsavel" class="control-label"></label>
-                <input asp-for="Responsavel" class="form-control" />
-                <span asp-validation-for="Responsavel" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Observacao" class="control-label"></label>
-                <textarea asp-for="Observacao" class="form-control"></textarea>
-                <span asp-validation-for="Observacao" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <hr>
+            <div class="form-group d-flex" style="justify-content: end;">
+                <input type="submit" value="Criar" class="btn btn-primary" />
+                <a asp-action="Detalhes" asp-route-id="@Model.Id" class="btn btn-light">Voltar</a>
             </div>
         </form>
     </div>
-</div>
-<div>
-    <a asp-action="Detalhes" class="botao-visualizar btn" asp-route-id="@Model.Id">Voltar</a>
 </div>

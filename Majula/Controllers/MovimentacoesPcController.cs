@@ -5,25 +5,26 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Pk.Data;
 using Pk.Models;
+using Pk.Services;
 
 namespace Majula.Controllers
 {
     public class MovimentacoesPcController : Controller
     {
         private readonly Contexto _context;
+        private readonly ServicosMovimentacoes _servicosMovimentacoes;
 
-        public MovimentacoesPcController(Contexto context)
+        public MovimentacoesPcController(Contexto context, ServicosMovimentacoes servicosMovimentacoes)
         {
             _context = context;
+            _servicosMovimentacoes = servicosMovimentacoes;
         }
-
         [HttpPost]
         public async Task<IActionResult> PostMovimentacao([FromBody] MovimentacaoComputador movimentacaoPc)
         {
-
             if (ModelState.IsValid)
             {
-                Desativar(movimentacaoPc.ComputadorId);
+                _servicosMovimentacoes.DesativarMovPc(movimentacaoPc.ComputadorId);
                 movimentacaoPc.DataAtual = DateTime.Now;
                 _context.Add(movimentacaoPc);
                 await _context.SaveChangesAsync();
@@ -32,22 +33,10 @@ namespace Majula.Controllers
             return Json(movimentacaoPc);
         }
         [HttpGet]
-        public IActionResult GetListaMovimentacao(int id)
+        public IActionResult GetListaMovimentacaoPc(int id)
         {
-            var mov = _context.MovimentacoesPc.FirstOrDefault(c => c.ComputadorId == id && c.Ativo == true);
+            var mov = _context.MovimentacoesPc.Include(m => m.Setor).FirstOrDefault(c => c.ComputadorId == id && c.Ativo == true);
             return Json(mov);
         }
-        public void Desativar(int computadorId)
-        {
-            var mov = _context.MovimentacoesPc.FirstOrDefault(c => c.ComputadorId == computadorId && c.Ativo == true);
-            if (mov != null)
-            {
-                mov.Ativo = false;
-                _context.Update(mov);
-                _context.SaveChanges();
-            }
-
-        }
-
     }
 }

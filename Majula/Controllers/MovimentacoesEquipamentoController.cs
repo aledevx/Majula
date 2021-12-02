@@ -5,16 +5,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Pk.Data;
 using Pk.Models;
+using Pk.Services;
 
 namespace Majula.Controllers
 {
     public class MovimentacoesEquipamentoController : Controller
     {
         private readonly Contexto _context;
+        private readonly ServicosMovimentacoes _servicosMovimentacoes;
 
-        public MovimentacoesEquipamentoController(Contexto context)
+        public MovimentacoesEquipamentoController(Contexto context, ServicosMovimentacoes servicosMovimentacoes)
         {
             _context = context;
+            _servicosMovimentacoes = servicosMovimentacoes;
         }
 
         [HttpPost]
@@ -23,6 +26,7 @@ namespace Majula.Controllers
 
             if (ModelState.IsValid)
             {
+                _servicosMovimentacoes.DesativarMovEquipamento(movimentacaoEquipamento.EquipamentoId);
                 movimentacaoEquipamento.DataAtual = DateTime.Now;
                 _context.Add(movimentacaoEquipamento);
                 await _context.SaveChangesAsync();

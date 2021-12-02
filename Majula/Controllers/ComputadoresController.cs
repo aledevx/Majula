@@ -20,8 +20,6 @@ namespace Pk.Controllers
             _context = context;
             _geradorListas = geradorListas;
         }
-
-
         public IActionResult Index()
         {
             var computadores = _context.Computadores.Include(c => c.Marca).Include(c => c.Modelo);
@@ -39,7 +37,7 @@ namespace Pk.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<ActionResult> Criar(Computador computador)
+        public async Task<IActionResult> Criar(Computador computador)
         {
             try
             {
@@ -49,16 +47,14 @@ namespace Pk.Controllers
                     await _context.SaveChangesAsync();
                     var setorGTI = _context.Setores.Where(setor => setor.Sigla == "GTI").FirstOrDefault();
                     MovimentacaoComputador movComputador = new MovimentacaoComputador();
-
                     movComputador.ComputadorId = computador.Id;
                     movComputador.SetorId = setorGTI.Id;
                     movComputador.DataAtual = DateTime.Now;
                     movComputador.Ativo = true;
-
                     _context.Add(movComputador);
                     await _context.SaveChangesAsync();
 
-                    return RedirectToAction("Detalhes", "Computadores", computador.Id);
+                    return RedirectToAction("Detalhes", "Computadores", new { id = computador.Id });
                 }
             }
             catch (System.Exception mensagem)
@@ -81,6 +77,8 @@ namespace Pk.Controllers
             .Include(c => c.Modelo)
             .Include(c => c.Processador)
             .Include(c => c.Memoria)
+            .Include(c => c.Monitores)
+            .ThenInclude(monitor => monitor.Marca)
             .FirstOrDefaultAsync(c => c.Id == id);
 
             if (computador == null)

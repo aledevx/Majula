@@ -20,5 +20,6 @@ namespace Pk.Models
         public string Observacao { get; set; }
         [Display(Name = "Movimentações")]
         public ICollection<MovimentacaoEquipamento> MovimentacoesEquipamento { get; set; }
+        
     }
 }

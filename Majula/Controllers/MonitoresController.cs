@@ -16,11 +16,13 @@ namespace Pk.Controllers
     {
         private readonly Contexto _context;
         private readonly GeradorListas _geradorListas;
+        private readonly ServicosMovimentacoes _servicosMovimentacoes;
 
-        public MonitoresController(Contexto context, GeradorListas geradorListas)
+        public MonitoresController(Contexto context, GeradorListas geradorListas, ServicosMovimentacoes servicosMovimentacoes)
         {
             _context = context;
             _geradorListas = geradorListas;
+            _servicosMovimentacoes = servicosMovimentacoes;
         }
 
         // public async Task<IActionResult> AddMonitor(string searchString, int? ComputadorId)
@@ -70,17 +72,45 @@ namespace Pk.Controllers
 
         public async Task<IActionResult> Vincular(int id, int computadorId)
         {
-            var monitor = await _context.Monitores.FindAsync(id);
-            monitor.ComputadorId = computadorId;
-            _context.Update(monitor);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Detalhes", "Computadores", new { id = computadorId });
+            try
+            {
+                var monitor = await _context.Monitores.FindAsync(id);
+                monitor.ComputadorId = computadorId;
+                _context.Update(monitor);
+                await _context.SaveChangesAsync();
+
+                // Busca a movimentação ativa do computador que será vinculado ao monitor
+                var movAtualPc = _context.MovimentacoesPc.Where(movPc => movPc.Ativo == true && movPc.ComputadorId == computadorId)
+                .Include(mov => mov.Setor).FirstOrDefault();
+                // Busca o setor atual do computador que está sendo vinculado ao monitor
+                var setorAtual = _context.Setores.Where(setor => setor.Sigla == movAtualPc.Setor.Sigla).FirstOrDefault();
+
+                //Chama o serviço para desativar a movimentação que está ativa do monitor
+                _servicosMovimentacoes.DesativarMovMonitor(monitor.Id);
+
+                // Cria uma nova movimentação de monitor
+                MovimentacaoMonitor movMonitor = new MovimentacaoMonitor();
+                // Atribui os valores necessário para a nova movimentação e em seguida salva, 
+                //assim o monitor quando vinculado é movimentado para o mesmo setor do computador escolhido
+                movMonitor.MonitorId = monitor.Id;
+                movMonitor.Ativo = true;
+                movMonitor.DataAtual = DateTime.Now;
+                movMonitor.SetorId = setorAtual.Id;
+                _context.Add(movMonitor);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("Detalhes", "Computadores", new { id = computadorId });
+            }
+            catch (System.Exception mensagem)
+            {
+                throw new Exception("Error ", mensagem);
+            }
+
         }
 
         [HttpGet]
         public async Task<IActionResult> Desvincular(int? id)
         {
-
             var monitor = await _context.Monitores.FindAsync(id);
 
             int computadorId = Convert.ToInt32(monitor.ComputadorId);
@@ -91,24 +121,33 @@ namespace Pk.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Detalhes", "Computadores", new { id = computadorId });
         }
+
+        //Tela para selecionar o monitor quando tenta vincular com algum computador
         public async Task<IActionResult> Teste(string searchString, int? computadorId)
         {
 
-            var monitores = from m in _context.Monitores
-                            select m;
-
-            ViewBag.computadorId = computadorId;
-
-            if (!String.IsNullOrEmpty(searchString))
+            try
             {
-                monitores = monitores.Where(s => s.Tombamento.Contains(searchString));
-                ViewBag.monitorNaoEncontrado = false;
+                var monitores = from m in _context.Monitores
+                                select m;
+
+                ViewBag.computadorId = computadorId;
+
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    monitores = monitores.Where(s => s.Tombamento.Contains(searchString));
+                    ViewBag.monitorNaoEncontrado = false;
+                }
+                else
+                {
+                    ViewBag.monitorNaoEncontrado = true;
+                }
+                return View(await monitores.ToListAsync());
             }
-            else
+            catch (System.Exception mensagem)
             {
-                ViewBag.monitorNaoEncontrado = true;
+                throw new Exception("Error ", mensagem);
             }
-            return View(await monitores.ToListAsync());
         }
 
         [HttpPost]
@@ -135,7 +174,6 @@ namespace Pk.Controllers
             {
                 if (ModelState.IsValid)
                 {
-
                     _context.Add(monitor);
                     await _context.SaveChangesAsync();
                     var setorGti = _context.Setores.Where(setor => setor.Sigla == "GTI").FirstOrDefault();
@@ -148,7 +186,7 @@ namespace Pk.Controllers
                     await _context.SaveChangesAsync();
                     if (monitor.ComputadorId == null)
                     {
-                        return RedirectToAction("Detalhes", "Monitores", new { id = monitor.Id});
+                        return RedirectToAction("Detalhes", "Monitores", new { id = monitor.Id });
                     }
                     else
                     {
@@ -275,10 +313,5 @@ namespace Pk.Controllers
 
             return View();
         }
-
-
-
-
-
     }
 }

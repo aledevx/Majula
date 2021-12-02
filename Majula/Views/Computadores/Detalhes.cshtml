@@ -81,7 +81,6 @@
                         </dd>
                     </dl>
                 </div>
-
             </div>
 
 
@@ -92,41 +91,41 @@
             </div>
 
         </div>
-        @* <div class="coluna-2-detalhes">
+        <div class="coluna-2-detalhes">
             @foreach (var item in Model.Monitores)
             {
-            <div class="card card-monitor">
-            <div class="card-header bg-header-monitor">
-            <h3>Monitor</h3>
-            </div>
-            <div class="card-body">
-            <dl class="row">
-            <dt class="col-sm-4">
-            Tombamento
-            <a asp-action="Desvincular" asp-route-id="@item.Id" asp-controller="Monitores" class="botao-desvincular"><i
-            class="fas fa-skull"></i></a>
-            </dt>
-            <dd class="col-sm-8">
-            @item.Tombamento
-            </dd>
-            <dt class="col-sm-4 border-top-card-body">
-            Modelo
-            </dt>
-            <dd class="col-sm-8 border-top-card-body">
-            @item.Modelo
-            </dd>
-            <dt class="col-sm-4 border-top-card-body">
-            Descrição
-            </dt>
-            <dd class="col-sm-8 border-top-card-body">
-            @item.Descricao
-            </dd>
-            </dl>
-            </div>
-            </div>
+                <div class="card card-monitor">
+                    <div class="card-header bg-header-monitor">
+                        <h3>Monitor</h3>
+                    </div>
+                    <div class="card-body">
+                        <dl class="row">
+                            <dt class="col-sm-4">
+                                Tombamento
+                                <a asp-action="Desvincular" asp-route-id="@item.Id" asp-controller="Monitores"
+                                class="botao-desvincular"><i class="fas fa-skull"></i></a>
+                            </dt>
+                            <dd class="col-sm-8">
+                                @item.Tombamento
+                            </dd>
+                            <dt class="col-sm-4 border-top-card-body">
+                                Marca
+                            </dt>
+                            <dd class="col-sm-8 border-top-card-body">
+                                @item.Marca.Descricao
+                            </dd>
+                            <dt class="col-sm-4 border-top-card-body">
+                                Descrição
+                            </dt>
+                            <dd class="col-sm-8 border-top-card-body">
+                                @item.Descricao
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
             }
 
-            </div> *@
+        </div>
 
     </section>
 

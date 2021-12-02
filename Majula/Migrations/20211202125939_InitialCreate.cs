@@ -149,7 +149,7 @@ namespace Pk.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Setor = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SetorId = table.Column<int>(type: "int", nullable: false),
                     DataAtual = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Ativo = table.Column<bool>(type: "bit", nullable: false),
                     EquipamentoId = table.Column<int>(type: "int", nullable: false)
@@ -161,6 +161,12 @@ namespace Pk.Migrations
                         name: "FK_MovimentacoesEquipamento_Equipamentos_EquipamentoId",
                         column: x => x.EquipamentoId,
                         principalTable: "Equipamentos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MovimentacoesEquipamento_Setores_SetorId",
+                        column: x => x.SetorId,
+                        principalTable: "Setores",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -201,7 +207,7 @@ namespace Pk.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Setor = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SetorId = table.Column<int>(type: "int", nullable: false),
                     DataAtual = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Ativo = table.Column<bool>(type: "bit", nullable: false),
                     ComputadorId = table.Column<int>(type: "int", nullable: false)
@@ -215,6 +221,12 @@ namespace Pk.Migrations
                         principalTable: "Computadores",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MovimentacoesPc_Setores_SetorId",
+                        column: x => x.SetorId,
+                        principalTable: "Setores",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -223,7 +235,7 @@ namespace Pk.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Setor = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SetorId = table.Column<int>(type: "int", nullable: false),
                     DataAtual = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Ativo = table.Column<bool>(type: "bit", nullable: false),
                     MonitorId = table.Column<int>(type: "int", nullable: false)
@@ -235,6 +247,12 @@ namespace Pk.Migrations
                         name: "FK_MovimentacoesMonitor_Monitores_MonitorId",
                         column: x => x.MonitorId,
                         principalTable: "Monitores",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MovimentacoesMonitor_Setores_SetorId",
+                        column: x => x.SetorId,
+                        principalTable: "Setores",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -280,14 +298,29 @@ namespace Pk.Migrations
                 column: "EquipamentoId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_MovimentacoesEquipamento_SetorId",
+                table: "MovimentacoesEquipamento",
+                column: "SetorId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_MovimentacoesMonitor_MonitorId",
                 table: "MovimentacoesMonitor",
                 column: "MonitorId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_MovimentacoesMonitor_SetorId",
+                table: "MovimentacoesMonitor",
+                column: "SetorId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_MovimentacoesPc_ComputadorId",
                 table: "MovimentacoesPc",
                 column: "ComputadorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MovimentacoesPc_SetorId",
+                table: "MovimentacoesPc",
+                column: "SetorId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -302,13 +335,13 @@ namespace Pk.Migrations
                 name: "MovimentacoesPc");
 
             migrationBuilder.DropTable(
-                name: "Setores");
-
-            migrationBuilder.DropTable(
                 name: "Equipamentos");
 
             migrationBuilder.DropTable(
                 name: "Monitores");
+
+            migrationBuilder.DropTable(
+                name: "Setores");
 
             migrationBuilder.DropTable(
                 name: "Computadores");

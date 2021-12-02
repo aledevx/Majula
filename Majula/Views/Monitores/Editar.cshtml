@@ -8,45 +8,51 @@
 </head>
 
 <body>
-
+    <h3>Monitor</h3>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4 p-md-3" style="box-shadow: 0px 1px 2px 2px rgba(0, 0, 0, 0.25);">
             <form asp-action="Editar">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="Id" />
                 <div class="form-group">
-                    <label asp-for="Tombamento" class="control-label"></label>
-                    <input asp-for="Tombamento" class="form-control" />
-                    <span asp-validation-for="Tombamento" class="text-danger"></span>
+                    <input asp-for="ComputadorId" type='hidden'>
                 </div>
-                <div class="form-group">
-                    <label asp-for="Marca" class="control-label"></label>
-                    <input asp-for="Marca" class="form-control" />
-                    <span asp-validation-for="Marca" class="text-danger"></span>
+                <div class="col-md-12 row">
+                    <div class="col-md-7">
+                        <label asp-for="Tombamento" class="control-label"></label>
+                        <input asp-for="Tombamento" class="form-control" />
+                        <span asp-validation-for="Tombamento" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-5">
+                        <label asp-for="MarcaId" class="control-label">Marca</label>
+                        <select asp-for="MarcaId" class="form-control" asp-items="ViewBag.MarcaId" required>
+                            <option value="">Selecione...</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="form-group">
+                <div class="col-md-12">
                     <label asp-for="Descricao" class="control-label"></label>
                     <input asp-for="Descricao" class="form-control" />
                     <span asp-validation-for="Descricao" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <label asp-for="Status" class="control-label"></label>
-                    <select asp-for="Status" class="form-control" asp-items="ViewBag.Status"></select>
-                    <span asp-validation-for="Status" class="text-danger"></span>
+                <div class="col-md-12 row">
+                    <div class="col-md-4">
+                        <label asp-for="Status" class="control-label"></label>
+                        <select asp-for="Status" class="form-control" asp-items="ViewBag.Status"></select>
+                    </div>
+                    <div class="col-md-8">
+                        <label asp-for="Observacao" class="control-label"></label>
+                        <textarea asp-for="Observacao" class="form-control"></textarea>
+                        <span asp-validation-for="Observacao" class="text-danger"></span>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label asp-for="Observacao" class="control-label"></label>
-                    <textarea asp-for="Observacao" class="form-control"></textarea>
-                    <span asp-validation-for="Observacao" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-primary" />
+                <hr>
+                <div class="form-group d-flex justify-content-end">
+                    <input type="submit" value="Salvar" class="btn btn-primary" />
+                    <a asp-action="Index" class="btn btn-light">Voltar</a>
                 </div>
             </form>
         </div>
-    </div>
-    <div>
-        <a asp-action="Index">Back to List</a>
     </div>
 </body>
 
