@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Pk.Services;
 using System;
+using System.Collections.Generic;
 
 namespace Pk.Controllers
 {
@@ -20,10 +21,27 @@ namespace Pk.Controllers
             _context = context;
             _geradorListas = geradorListas;
         }
-        public IActionResult Index()
+        public IActionResult Index(string searchString)
         {
             var computadores = _context.Computadores.Include(c => c.Marca).Include(c => c.Modelo);
-            return View(computadores.ToList());
+
+            // Convertendo um enumerable em uma Lista
+            List<Computador> computadores2 = computadores.ToList();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                computadores2 = computadores2.Where(s => s.Tombamento.Contains(searchString)).ToList();
+
+                if (computadores2.Count >= 1)
+                {
+                    ViewBag.computadorNaoEncontrado = false;
+                }
+                else
+                {
+                    ViewBag.computadorNaoEncontrado = true;
+                }
+            }
+            return View(computadores2);
         }
 
         public IActionResult Criar()

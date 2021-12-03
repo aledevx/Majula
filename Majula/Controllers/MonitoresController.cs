@@ -47,12 +47,8 @@ namespace Pk.Controllers
         //     return View(await monitores.FirstOrDefaultAsync());
 
         // }
-        public async Task<IActionResult> Index(string searchString)
+        public IActionResult Index(string searchString)
         {
-
-            // var monitores = from m in _context.Monitores
-            // select m; 
-
 
             var monitores = _context.Monitores.Include(m => m.Marca);
             // Convertendo um enumerable em uma Lista
@@ -61,12 +57,17 @@ namespace Pk.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 monitores2 = monitores2.Where(s => s.Tombamento.Contains(searchString)).ToList();
-                ViewBag.monitorNaoEncontrado = false;
+
+                if (monitores2.Count >= 1)
+                {
+                    ViewBag.monitorNaoEncontrado = false;
+                }
+                else
+                {
+                    ViewBag.monitorNaoEncontrado = true;
+                }
             }
-            else
-            {
-                ViewBag.monitorNaoEncontrado = true;
-            }
+
             return View(monitores2);
         }
 
@@ -123,26 +124,31 @@ namespace Pk.Controllers
         }
 
         //Tela para selecionar o monitor quando tenta vincular com algum computador
-        public async Task<IActionResult> Teste(string searchString, int? computadorId)
+        public IActionResult Teste(string searchString, int? computadorId)
         {
 
             try
             {
-                var monitores = from m in _context.Monitores
-                                select m;
+                var monitores = _context.Monitores.Include(m => m.Marca);
+
+                List<Monitor> monitores2 = monitores.ToList();
 
                 ViewBag.computadorId = computadorId;
 
                 if (!String.IsNullOrEmpty(searchString))
                 {
-                    monitores = monitores.Where(s => s.Tombamento.Contains(searchString));
-                    ViewBag.monitorNaoEncontrado = false;
+                    monitores2 = monitores2.Where(s => s.Tombamento.Contains(searchString)).ToList();
+
+                    if (monitores2.Count >= 1)
+                    {
+                        ViewBag.monitorNaoEncontrado = false;
+                    }
+                    else
+                    {
+                        ViewBag.monitorNaoEncontrado = true;
+                    }
                 }
-                else
-                {
-                    ViewBag.monitorNaoEncontrado = true;
-                }
-                return View(await monitores.ToListAsync());
+                return View(monitores2);
             }
             catch (System.Exception mensagem)
             {
@@ -240,6 +246,16 @@ namespace Pk.Controllers
 
             var monitor = await _context.Monitores.Include(m => m.Marca)
             .FirstOrDefaultAsync(m => m.Id == id);
+
+
+            var computadorVinculado = _context.Computadores.Where(c => c.Id == monitor.ComputadorId).FirstOrDefault();
+
+            if (computadorVinculado != null)
+            {
+                ViewBag.PcVinculado = computadorVinculado.Tombamento;
+            }
+
+
 
             if (monitor == null)
             {

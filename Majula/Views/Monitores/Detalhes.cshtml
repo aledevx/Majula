@@ -10,6 +10,9 @@
     <meta name="viewport" content="width=device-width" />
     <title>Detalhes</title>
 </head>
+<div class="d-flex justify-content-end"><a class="btn btn-danger d-flex justify-content-between align-items-center"
+        style="width: 100px;" asp-action="Index"><i class="fas fa-arrow-circle-left"></i> <strong>Voltar</strong></a>
+</div>
 
 <body>
 
@@ -26,8 +29,8 @@
                             class="fas fa-exchange-alt"></i></a>
                     <a class="botao-acao3-monitor" asp-action="Editar" asp-route-id="@Model.Id"><i
                             class="fas fa-cogs"></i></a>
-                    <a href="" class="botao-acao2-monitor" data-toggle="modal" data-target="#modalHistoricoMovimentacaoMonitor"><i
-                            class="fas fa-history"></i></a>
+                    <a href="" class="botao-acao2-monitor" data-toggle="modal"
+                        data-target="#modalHistoricoMovimentacaoMonitor"><i class="fas fa-history"></i></a>
                 </dt>
                 <dd class="col-sm-7">
                     @Html.DisplayFor(model => model.Tombamento)
@@ -47,7 +50,7 @@
                 <dt class="col-sm-5 border-top-card-body">
                     @Html.DisplayNameFor(model => model.Computador)
                 </dt>
-                @if (Model.Computador is null)
+                @if (Model.ComputadorId is null)
                 {
                     <dd class="col-sm-7 border-top-card-body text-danger">
                         Sem computador vinculado
@@ -56,7 +59,7 @@
                 else
                 {
                     <dd class="col-sm-7 border-top-card-body">
-                        @Html.DisplayFor(model => model.Computador.Tombamento)
+                        <strong>@ViewBag.PcVinculado</strong>
                     </dd>
                 }
                 <dt class="col-sm-5 border-top-card-body">
@@ -84,9 +87,6 @@
 
         </div>
     </div>
-
-
-
 </body>
 
 @Html.Partial("/Views/Shared/_ModalMovimentacaoMonitor.cshtml")

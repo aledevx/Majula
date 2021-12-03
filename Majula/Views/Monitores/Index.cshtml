@@ -68,21 +68,23 @@
             }
         </tbody>
     </table>
-@if (@ViewBag.monitorNaoEncontrado == false)
-{
-       <div class="col-md-12">
-       <br>
-     <div class="row">
-         <div class="alert alert-danger" role="alert" style="margin: auto; opaticy: 0.5;">
-            <h4 class="alert-heading">MONITOR NÃO ENCONTRADO!</h4>
-            <p>Verifique se o <b>Tombamento</b> do monitor foi digitado corretamente.</p>
-          </div>
-    </div>
 
-   </div>
-}
-else {
-    
-}
 
 </body>
+@if (@ViewBag.monitorNaoEncontrado == true)
+{
+    <div class="col-md-12">
+        <br>
+        <div class="row">
+            <div class="alert alert-danger" role="alert" style="margin: auto; opaticy: 0.5;">
+                <h4 class="alert-heading">MONITOR NÃO ENCONTRADO!</h4>
+                <p>Verifique se o <b>Tombamento</b> do monitor foi digitado corretamente.</p>
+            </div>
+        </div>
+
+    </div>
+}
+else
+{
+
+}

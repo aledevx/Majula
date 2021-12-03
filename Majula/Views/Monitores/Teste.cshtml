@@ -1,7 +1,7 @@
 @model IEnumerable<Pk.Models.Monitor>
 
 @{
-    ViewData["Title"] = "Teste";
+    ViewData["Title"] = "Vincular monitor";
 }
 
 
@@ -11,11 +11,12 @@
 </head>
 
 <body>
-    <div style="display: flex; justify-content: space-between; align-items: center;">
+    <div class="d-flex justify-content-between align-items-center">
         <p>
-            <a asp-action="AddMonitor" asp-route-computadorId="@ViewBag.computadorId" class="botao-add"><i class="fas fa-plus"></i></a>
+            <a asp-action="AddMonitor" asp-route-computadorId="@ViewBag.computadorId" class="botao-add"><i
+                    class="fas fa-plus"></i></a>
         </p>
-        <form asp-controller="Monitores" asp-action="Index" method="get">
+        <form asp-controller="Monitores" asp-action="Teste" method="get">
             <p>
                 Title: <input type="text" name="SearchString" />
                 <input type="submit" value="Filter" />
@@ -51,7 +52,7 @@
                         @Html.DisplayFor(modelItem => item.Tombamento)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Marca)
+                        @Html.DisplayFor(modelItem => item.Marca.Descricao)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Descricao)
@@ -60,7 +61,8 @@
                         @Html.DisplayFor(modelItem => item.Status)
                     </td>
                     <td>
-                        <a asp-action="Vincular" class="botao-visualizar btn" asp-route-id="@item.Id" asp-route-computadorId="@ViewBag.computadorId">Selecionar</a>
+                        <a asp-action="Vincular" class="botao-visualizar btn" asp-route-id="@item.Id"
+                        asp-route-computadorId="@ViewBag.computadorId">Selecionar</a>
                         @* <a asp-action="Editar" asp-route-id="@item.Id">Editar</a>
                             <a asp-action="Excluir" asp-route-id="@item.Id">Excluir</a> *@
                     </td>
@@ -68,21 +70,28 @@
             }
         </tbody>
     </table>
-@if (@ViewBag.monitorNaoEncontrado == false)
-{
-       <div class="col-md-12">
-       <br>
-     <div class="row">
-         <div class="alert alert-danger" role="alert" style="margin: auto; opaticy: 0.5;">
-            <h4 class="alert-heading">MONITOR NÃO ENCONTRADO!</h4>
-            <p>Verifique se o <b>Tombamento</b> do monitor foi digitado corretamente.</p>
-          </div>
-    </div>
-
-   </div>
-}
-else {
-    
-}
 
 </body>
+
+@if (@ViewBag.monitorNaoEncontrado == true)
+{
+    <div class="col-md-12">
+        <br>
+        <div class="row">
+            <div class="alert alert-danger" role="alert" style="margin: auto; opaticy: 0.5;">
+                <h4 class="alert-heading">MONITOR NÃO ENCONTRADO!</h4>
+                <p>Verifique se o <b>Tombamento</b> do monitor foi digitado corretamente.</p>
+            </div>
+        </div>
+
+    </div>
+}
+else
+{
+
+}
+
+<div class="d-flex justify-content-end"><a class="btn btn-danger d-flex justify-content-between align-items-center"
+        style="width: 100px;" asp-controller="Computadores" asp-action="Detalhes"
+        asp-route-id="@ViewBag.computadorId"><i class="fas fa-arrow-circle-left"></i> <strong>Voltar</strong></a>
+</div>

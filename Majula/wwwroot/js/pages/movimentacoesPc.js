@@ -1,4 +1,4 @@
-const urlGetSetorAtualPc = `/MovimentacoesPc/GetListaMovimentacaoPc/`
+const urlGetSetorAtualPc = `/MovimentacoesPc/GetMovimentacaoAtualPc/`
 const urlPostMovPc = `/MovimentacoesPc/PostMovimentacao/`
 const urlGetSetoresPc = `/Setores/GetSetores/`
 

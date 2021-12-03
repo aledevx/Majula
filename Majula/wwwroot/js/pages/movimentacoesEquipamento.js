@@ -1,10 +1,36 @@
-const urlGetSetorAtualEquipamento = `/MovimentacoesEquipamento/GetListaMovimentacao/`
+const urlGetSetorAtualEquipamento = `/MovimentacoesEquipamento/GetMovimentacaoAtualEquipamento/`
+const urlGetSetoresEquipamento = `/Setores/GetSetores`
+const urlPostMovEquipamento = `/MovimentacoesEquipamento/PostMovimentacao/`
 
 var banco_objeto_equipamento = new Object();
+
+let setores_equipamento = document.getElementById('equipamento_setorId');
+setores_equipamento.length = 0;
+
+let banco_setores_dropdown_equipamento = [];
 
 var equipamentoId = document.getElementById('Id').value;
 
 GetMovimentacaoEquipamento(equipamentoId);
+GetSetoresEquipamento();
+
+function GetSetoresEquipamento() {
+    fetch(urlGetSetoresEquipamento).then(response => response.json())
+        .then(Setores => {
+            banco_setores_dropdown_equipamento = Setores
+            let option;
+            for (let i = 0; i < Setores.length; i++) {
+                option = document.createElement('option');
+                option.innerHTML = `
+                ${Setores[i].sigla} - ${Setores[i].descricao}
+                `
+                option.id = Setores[i].id;
+                option.className = 'opt';
+                setores_equipamento.add(option);
+            }
+            console.log(banco_setores_dropdown_equipamento);
+        })
+}
 
 function GetMovimentacaoEquipamento(id) {
     fetch(urlGetSetorAtualEquipamento + id).then(responde => responde.json()).then(ObjetoMovimentacao => {
@@ -39,4 +65,28 @@ function GerarHtmlEquipamentoMov(SetorId, DataAtual) {
  `
     document.getElementById('setorAtualEquipamento').appendChild(dl_setor);
     console.log(banco_objeto_equipamento);
+}
+
+function PostMovimentacaoEquipamento(){
+    //Variavel para pegar o drop e conseguir pegar o valor da option selecionada
+    var dropdown_setor_Equipamento = document.getElementById('equipamento_setorId');
+    var setor_selecionado_equipamento = dropdown_setor_Equipamento.options[dropdown_setor_Equipamento.selectedIndex].id;
+
+    const equipamento_Id = document.getElementById('Id');
+
+    //Cria o objeto da movimentação do equipamento
+    const objeto_movimentacao = {
+        "SetorId": setor_selecionado_equipamento,
+        "DataAtual": new Date(),
+        "Ativo": true,
+        "EquipamentoId": equipamento_Id.value.trim()
+    };
+    //Post da movimentação do equipamento
+    fetch(urlPostMovEquipamento, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(objeto_movimentacao),
+    }).then(response => response.json(GetMovimentacaoEquipamento(equipamentoId)))
 }

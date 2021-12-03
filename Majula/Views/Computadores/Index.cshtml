@@ -14,14 +14,12 @@
         <p>
             <a asp-action="Criar" class="botao-add"><i class="fas fa-plus"></i></a>
         </p>
-        <div class="input-group" data-widget="sidebar-search" style="width: 260px; margin-top: -15px;">
-            <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-            <div class="input-group-append">
-               <a href="" class="botao-busca">
-                    <i class="fas fa-search fa-fw"></i>
-                </a>
-            </div>
-        </div>
+        <form asp-controller="Computadores" asp-action="Index" method="get">
+            <p>
+                Title: <input type="text" name="SearchString" />
+                <input type="submit" value="Filter" />
+            </p>
+        </form>
     </div>
 
     <table class="table table-striped">
@@ -69,10 +67,28 @@
                     <td>
                         <a asp-action="Detalhes" class="botao-visualizar btn" asp-route-id="@item.Id">Detalhes</a>
                         @* <a asp-action="Editar" asp-route-id="@item.Id">Editar</a>
-                        <a asp-action="Excluir" asp-route-id="@item.Id">Excluir</a> *@
+                            <a asp-action="Excluir" asp-route-id="@item.Id">Excluir</a> *@
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 </body>
+
+@if (@ViewBag.computadorNaoEncontrado == true)
+{
+    <div class="col-md-12">
+        <br>
+        <div class="row">
+            <div class="alert alert-danger" role="alert" style="margin: auto; opaticy: 0.5;">
+                <h4 class="alert-heading">COMPUTADOR NÃO ENCONTRADO!</h4>
+                <p>Verifique se o <b>Tombamento</b> do computador foi digitado corretamente.</p>
+            </div>
+        </div>
+
+    </div>
+}
+else
+{
+
+}

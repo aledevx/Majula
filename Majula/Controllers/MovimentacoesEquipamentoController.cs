@@ -35,10 +35,10 @@ namespace Majula.Controllers
             return Json(movimentacaoEquipamento);
         }
         [HttpGet]
-        public IActionResult GetListaMovimentacaoEquipamento(int equipamentoId)
+        public IActionResult GetMovimentacaoAtualEquipamento(int id)
         {
-            var movimentacoes = _context.MovimentacoesEquipamento.Where(m => m.EquipamentoId == equipamentoId).OrderByDescending(m => m.DataAtual);
-            return Json(movimentacoes);
+            var mov = _context.MovimentacoesEquipamento.Include(m => m.Setor).FirstOrDefault(c => c.EquipamentoId == id && c.Ativo == true);
+            return Json(mov);
         }
     }
 }

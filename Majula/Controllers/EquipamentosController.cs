@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -21,10 +22,27 @@ namespace Pk.Controllers
             _geradorListas = geradorListas;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string searchString)
         {
-            var equipamentos = _context.Equipamentos;
-            return View(equipamentos.ToList());
+
+            var equipamentos = _context.Equipamentos.Include(e => e.Marca);
+            List<Equipamento> equipamentos2 = equipamentos.ToList();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                equipamentos2 = equipamentos2.Where(e => e.Tombamento.Contains(searchString)).ToList();
+
+                if (equipamentos2.Count >= 1)
+                {
+                    ViewBag.equipamentoNaoEncontrado = false;
+                }
+                else
+                {
+                    ViewBag.equipamentoNaoEncontrado = true;
+                }
+            }
+
+            return View(equipamentos2);
         }
 
         public IActionResult Criar()
